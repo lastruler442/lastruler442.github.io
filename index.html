@@ -1,0 +1,1246 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="手持ちの革靴から、別のブランド・木型で選ぶべきサイズを答えます。オールデン、クロケット＆ジョーンズ、チャーチ、エドワードグリーン、ジョンロブなど、実際の着用記録1,800件から木型ごとのクセを推定しています。">
+<meta property="og:title" content="ラストの物差し｜革靴の木型別サイズ換算">
+<meta property="og:description" content="手持ちの革靴から、別のブランド・木型で選ぶべきサイズを答えます。オールデン、クロケット＆ジョーンズ、チャーチ、エドワードグリーン、ジョンロブなど、実際の着用記録1,800件から木型ごとのクセを推定しています。">
+<meta property="og:type" content="website">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>ラストの物差し</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#EEEDE8;
+  --surface:#FAF9F6;
+  --surface-2:#E6E4DD;
+  --ink:#1E1C19;
+  --muted:#6B6860;
+  --rule:#D5D2C9;
+  --accent:#6E1F2E;
+  --accent-soft:#F0E2E3;
+  --brass:#8A6D2B;
+  --brass-soft:#EDE6D3;
+  --shadow:0 1px 2px rgba(30,28,25,.06), 0 8px 24px -16px rgba(30,28,25,.28);
+  --sans:"IBM Plex Sans", system-ui, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  --display:"Bodoni Moda", "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#161513;
+    --surface:#1F1E1B;
+    --surface-2:#2A2825;
+    --ink:#EAE7DF;
+    --muted:#9A958A;
+    --rule:#34322C;
+    --accent:#C4596B;
+    --accent-soft:#3A2126;
+    --brass:#C6A253;
+    --brass-soft:#332C1D;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#161513;
+  --surface:#1F1E1B;
+  --surface-2:#2A2825;
+  --ink:#EAE7DF;
+  --muted:#9A958A;
+  --rule:#34322C;
+  --accent:#C4596B;
+  --accent-soft:#3A2126;
+  --brass:#C6A253;
+  --brass-soft:#332C1D;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:40px 22px 80px;display:flex;flex-direction:column;gap:34px}
+
+/* ---------- header ---------- */
+.masthead{display:flex;flex-direction:column;gap:14px}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--brass);
+}
+h1{
+  font-family:var(--display);
+  font-weight:600;
+  font-size:clamp(38px,7vw,60px);
+  line-height:1.02;
+  margin:0;
+  text-wrap:balance;
+  letter-spacing:-.01em;
+}
+.lede{max-width:62ch;color:var(--muted);margin:0;font-size:16px}
+.lede b{color:var(--ink);font-weight:600}
+
+.stats{
+  display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+.stat{flex:1 1 130px;padding:12px 16px 12px 0;border-right:1px solid var(--rule)}
+.stat:last-child{border-right:0}
+.stat dt{font-size:11px;letter-spacing:.08em;color:var(--muted);margin:0}
+.stat dd{margin:2px 0 0;font-family:var(--mono);font-size:20px;font-weight:500;font-variant-numeric:tabular-nums}
+
+/* ---------- bench ---------- */
+.bench{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.bench{grid-template-columns:1fr}}
+
+.panel{
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-radius:3px;
+  padding:20px;
+  display:flex;flex-direction:column;gap:14px;
+  box-shadow:var(--shadow);
+}
+.panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.panel h2{
+  font-size:13px;font-weight:600;margin:0;letter-spacing:.06em;
+}
+.panel-note{font-size:12px;color:var(--muted)}
+
+.shoe{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  padding:12px;
+  background:var(--surface-2);
+  border-radius:2px;
+  position:relative;
+}
+.shoe.target{background:var(--accent-soft)}
+.shoe .full{grid-column:1 / -1}
+.field{display:flex;flex-direction:column;gap:3px;min-width:0}
+.field label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.field .locked{font-size:10.5px;color:var(--brass);margin-top:1px}
+select:disabled{opacity:.75;cursor:not-allowed;background-image:none;padding-right:8px}
+select{
+  width:100%;
+  font-family:var(--sans);
+  font-size:14px;
+  padding:7px 8px;
+  color:var(--ink);
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-radius:2px;
+  appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);
+  background-position:calc(100% - 15px) 55%, calc(100% - 10px) 55%;
+  background-size:5px 5px, 5px 5px;
+  background-repeat:no-repeat;
+  padding-right:28px;
+}
+select:focus-visible, button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.rowbtns{display:flex;gap:8px;align-items:center}
+button{
+  font-family:var(--sans);font-size:13px;
+  padding:7px 14px;border-radius:2px;cursor:pointer;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink);
+}
+button:hover{border-color:var(--ink)}
+.remove{
+  border:0;background:transparent;color:var(--muted);
+  padding:2px 6px;font-size:12px;
+}
+.remove:hover{color:var(--accent)}
+
+/* ---------- result ---------- */
+.result{
+  border:1px solid var(--rule);
+  border-top:3px solid var(--accent);
+  background:var(--surface);
+  border-radius:3px;
+  padding:26px;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:28px;
+  align-items:center;
+  box-shadow:var(--shadow);
+}
+@media (max-width:640px){.result{grid-template-columns:1fr;gap:18px}}
+.readout{display:flex;flex-direction:column;gap:2px}
+.readout .for{font-size:12px;color:var(--muted)}
+.bignum{
+  font-family:var(--display);
+  font-size:clamp(52px,11vw,86px);
+  line-height:1;
+  font-weight:600;
+  letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.bignum .sys{font-size:.32em;color:var(--muted);font-family:var(--sans);font-weight:400;letter-spacing:.04em;margin-right:.22em;vertical-align:.5em}
+.bignum .w{color:var(--accent)}
+.range{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.verdict{display:flex;flex-direction:column;gap:10px}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;align-self:flex-start;
+  font-size:12px;padding:4px 11px;border-radius:99px;
+  border:1px solid var(--rule);background:var(--surface-2);
+}
+.chip i{width:7px;height:7px;border-radius:99px;background:var(--brass);display:block}
+.chip.high i{background:#3E7A55}
+.chip.low i{background:var(--accent)}
+.verdict p{margin:0;font-size:14px;max-width:46ch}
+.verdict p.warn{color:var(--accent)}
+
+/* ---------- chart ---------- */
+section h3{
+  font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 4px;
+}
+section > p.sub{margin:0 0 16px;color:var(--muted);font-size:13.5px;max-width:64ch}
+.chart{display:flex;flex-direction:column;gap:7px}
+.axis{
+  display:grid;grid-template-columns:190px 1fr;gap:14px;align-items:center;
+  font-size:11px;color:var(--muted);font-family:var(--mono);
+}
+@media (max-width:640px){.axis,.bar{grid-template-columns:120px 1fr!important}}
+.axis .ends{display:flex;justify-content:space-between}
+.bar{display:grid;grid-template-columns:190px 1fr;gap:14px;align-items:center}
+.bar .name{
+  font-size:12.5px;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.bar .name b{font-weight:600}
+.bar .name span{color:var(--muted)}
+.track{
+  position:relative;height:26px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:2px;
+}
+.zero{position:absolute;top:0;bottom:0;width:1px;background:var(--rule)}
+.fill{position:absolute;top:6px;bottom:6px;background:var(--brass);border-radius:1px}
+.bar.is-target .fill{background:var(--accent)}
+.bar.is-target .name b{color:var(--accent)}
+.val{
+  position:absolute;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:11px;color:var(--muted);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ---------- table ---------- */
+.tablewrap{overflow-x:auto;border:1px solid var(--rule);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:520px}
+th,td{padding:9px 14px;text-align:left;border-bottom:1px solid var(--rule)}
+th{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500}
+tbody tr:last-child td{border-bottom:0}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+td .tag{font-family:var(--mono);font-size:11px;color:var(--muted)}
+
+/* ---------- 静的な換算一覧 ---------- */
+#conversions{display:flex;flex-direction:column;gap:6px}
+details.conv{
+  border:1px solid var(--rule);border-radius:2px;background:var(--surface);
+}
+details.conv summary{
+  padding:9px 14px;cursor:pointer;font-size:13.5px;font-weight:500;
+  list-style:none;display:flex;align-items:center;gap:8px;
+}
+details.conv summary::-webkit-details-marker{display:none}
+details.conv summary::before{
+  content:"+";font-family:var(--mono);color:var(--brass);font-size:14px;
+}
+details.conv[open] summary::before{content:"−"}
+details.conv summary:hover{color:var(--accent)}
+details.conv ul{
+  margin:0;padding:2px 14px 14px 34px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2px 20px;
+}
+details.conv li{font-size:13px;color:var(--muted);line-height:1.75}
+details.conv li b{
+  color:var(--ink);font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-weight:500;
+}
+.few{font-size:10.5px;color:var(--brass);margin-left:6px}
+
+/* ---------- notes ---------- */
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media (max-width:760px){.notes{grid-template-columns:1fr}}
+.notes h4{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass);margin:0 0 8px}
+.notes p, .notes li{font-size:13.5px;color:var(--muted);margin:0 0 8px}
+.notes ul{margin:0;padding-left:1.1em}
+.notes b{color:var(--ink);font-weight:500}
+.formula{
+  font-family:var(--mono);font-size:12.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--brass);
+  padding:11px 14px;border-radius:2px;margin:0 0 12px;line-height:1.5;
+}
+footer{
+  border-top:1px solid var(--rule);padding-top:16px;
+  font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px;
+}
+footer a{color:var(--muted)}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">木型ごとのサイズ補正</div>
+    <h1>ラストの物差し</h1>
+    <p class="lede">同じ「8」でも、木型が変われば足に当たる場所が変わります。ネット上に書かれた <b>1,772件</b>の「この人はこの木型でこのサイズ」という記録から、木型ごとのクセを一斉に解いたものです。手持ちの靴を入れると、欲しい靴のサイズを答えます。</p>
+    <dl class="stats">
+      <div class="stat"><dt>収集したレコード</dt><dd>1,772</dd></div>
+      <div class="stat"><dt>所有者・足の区分</dt><dd>65</dd></div>
+      <div class="stat"><dt>ブランド × 木型</dt><dd>467</dd></div>
+      <div class="stat"><dt>ハーフサイズ以内で的中</dt><dd>86<span style="font-size:.6em">%</span></dd></div>
+    </dl>
+  </header>
+
+  <div class="bench">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>いま持っている靴</h2>
+        <span class="panel-note">多いほど精度が上がります</span>
+      </div>
+      <div id="owned"></div>
+      <div class="rowbtns"><button type="button" id="add">＋ 靴を追加</button></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h2>知りたい靴</h2>
+        <span class="panel-note">これから買うもの</span>
+      </div>
+      <div id="target"></div>
+    </div>
+  </div>
+
+  <div class="result" id="result"></div>
+
+  <section>
+    <h3>木型のクセ</h3>
+    <p class="sub">推定した補正値です。右にあるものほど「表記より小さく作られている＝大きいサイズを選ぶ必要がある」木型。バーの長さが、平均的な木型と比べた差です。</p>
+    <div class="chart" id="chart"></div>
+  </section>
+
+  <section>
+    <h3>この推定の根拠</h3>
+    <p class="sub">計算に使った木型と、その補正値がどれだけの記録に支えられているか。記録が少ない木型は数字を鵜呑みにしないでください。</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>木型</th><th>役割</th><th style="text-align:right">記録数</th><th style="text-align:right">補正値</th><th>信頼度</th></tr></thead>
+        <tbody id="evidence"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!--SEO-START--><section id="conversions">
+<h3>よく使われる組み合わせのサイズ換算</h3>
+<p class="sub">記録の多い木型について、換算結果をあらかじめ書き出したものです。木型どうしの差は一定なので、下の例と違うサイズでも同じだけずれます（例：起点が0.5大きければ、換算先も0.5大きくなります）。</p>
+<details class="conv"><summary>オールデン（Alden）Aberdeen／アバディーンラスト 8D の場合</summary>
+<ul>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 7.5D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 7.5D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 7.5D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 7.5D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 7.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 8D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 8D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 7E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 7EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 7E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 7E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 7E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 6.5F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 7.5D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 7E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 7E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 7D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 7.5D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 7.5D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 75</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 8B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 7.5D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>オールデン（Alden）Barrie／バリーラスト 8D の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 8D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 8.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 8.5D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 7.5E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 7.5EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 7.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 7.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 7.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 7F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 8D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 7.5E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 7.5E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 7.5D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 8D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 8D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 7.55</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 8.5B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 8D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>オールデン（Alden）Modified／モディファイドラスト 7.5D の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 7.5D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 7.5D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 7.5D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 7.5D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 7D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 7.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 7.5D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 7E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 7EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 6.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 6.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 6.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 6.5F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 7.5D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 6.5E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 7E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 7D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 7.5D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 7.5D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 75</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 7.5B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 7.5D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>オールデン（Alden）Plaza／プラザラスト 10.5D の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 11D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 10.5D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 11D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 10.5D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 10.5D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 10.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 11D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 10.5D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 10E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 10EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 9.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 10E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 10E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 9.5F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 10.5D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 9.5E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 10E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 10D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 10.5D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 10.5D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 105</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 10.5B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 10.5D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>オールデン（Alden）Trubalance／トゥルーバランスラスト 10D の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 10.5D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 10D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 10.5D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 10D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 10D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 10D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 10.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 10.5D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 9.5E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 9.5EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 9.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 9.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 9.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 9F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 10D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 9.5E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 9.5E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 9.5D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 10D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 10D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 9.55</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 10.5B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 10D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>アレンエドモンズ（Allen Edmonds）511 8D の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 7.5D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 7.5D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 7.5D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 7.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 8D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 7E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 7EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 7E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 7E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 7E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 6.5F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 7.5D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 7E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 7E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 7D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 8D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 7.5D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 75</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 8B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 7.5D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>アレンエドモンズ（Allen Edmonds）65 10D の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 10D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 9.5D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 10D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 10D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 10D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 9.5D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 9.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 10D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 9.5E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 9EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 9E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 9E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 9E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 9F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 9.5D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 9E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 9.5E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 9.5D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 10D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 9.5D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 95</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 10B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 9.5D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>カルミナ（Carmina）Forest 7.5E の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 8D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 8.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 8D</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 7.5EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 7E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 7.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 7.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 7F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 8D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 7E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 7.5E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 7.5D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 8D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 8D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 7.55</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 8B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 8D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>カルミナ（Carmina）Rain 7EE の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 7.5D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 7.5D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 7.5D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 7.5D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 7.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 8D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 8D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 7E</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 7E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 7E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 7E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 6.5F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 7.5D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 7E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 7E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 7D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 7.5D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 7.5D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 75</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 8B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 7.5D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>クロケット＆ジョーンズ（Crockett&amp;Jones）325 8E の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 8.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 9D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 9D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 8.5E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 8EE</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 8E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 8E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 7.5F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 8.5D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 8E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 8E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 8.5D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 9D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 8.5D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 85</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 9B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 8.5D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>エンツォボナフェ（Enzo Bonafe）363mod 9E の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 10D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 9.5D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 10D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 10D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 9.5D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 9.5D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 9.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 10D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 10D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 9E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 9EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 9E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 9E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 8.5F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 9.5D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 9E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 9E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 9D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 10D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 9.5D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 95</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 10B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 9.5D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>エンツォボナフェ（Enzo Bonafe）74945 7.5E の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 8D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 8.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 8.5D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 7.5E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 7.5EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 7.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 7.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 7F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 8D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 7.5E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 7.5E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 7.5D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 8D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 8D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 7.55</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 8.5B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 8D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>エンツォボナフェ（Enzo Bonafe）946 7.5F の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 8.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 9D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 8.5D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 8E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 8EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 8E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 8E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 8E</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 8.5D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 7.5E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 8E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 8D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 8.5D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 8.5D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 85</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 8.5B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 8.5D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>グラントストーン（Grant Stone）Leo 9D の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 9.5D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 9.5D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 9D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 9.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 9.5D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 8.5E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 8.5EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 8.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 8.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 8.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 8F</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 8E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 8.5E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 8.5D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 9D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 9D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 8.55</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 9.5B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 9D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>メルミン（Meermin）Hiro 8.5E の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 9.5D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 9.5D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 9D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 9.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 9D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 8.5E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 8.5EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 8.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 8.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 8.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 8F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 9D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 8E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 8.5D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 9D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 9D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 8.55</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 9.5B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 9D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>メルミン（Meermin）Rui 7.5D の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 8D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 8.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 8D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 7.5E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 7.5EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 7E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 7.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 7.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 7F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 8D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 7E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 7.5E</b></li>
+<li>ランコート（Rancourt）114 … <b>US 8D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 8D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 7.55</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 8B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 8D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>レッドウィング（Red Wing）8 8D の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 8D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 8D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 8.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 8.5D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 7.5E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 7.5EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 7.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 7.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 7.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 7F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 8D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 7.5E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 7.5E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 7.5D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 8D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 7.55</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 8.5B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 8D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>トリッカーズ（Tricker&#x27;s）4497S 8.55 の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 9.5D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 9.5D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 9D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 9.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 9.5D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 8.5E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 8.5EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 8.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 8.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 8.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 8F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 9D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 8E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 8.5E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 8.5D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 9D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 9D</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 9.5B</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 9D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>バイバーグ（Viberg）1035 9B の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 9D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 8.5D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 8.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 9D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 9D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 8.5E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 8EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 8E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 8E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 8E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 8F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 8.5D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 8E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 8E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 8.5D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 9D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 8.5D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 85</b></li>
+<li>バイバーグ（Viberg）2030 … <b>US 8.5D</b></li>
+</ul>
+</details>
+<details class="conv"><summary>バイバーグ（Viberg）2030 10D の場合</summary>
+<ul>
+<li>オールデン（Alden）Aberdeen／アバディーンラスト … <b>US 10.5D</b></li>
+<li>オールデン（Alden）Barrie／バリーラスト … <b>US 10D</b></li>
+<li>オールデン（Alden）Grant／グラントラスト … <b>US 10.5D</b></li>
+<li>オールデン（Alden）Modified／モディファイドラスト … <b>US 10D</b></li>
+<li>オールデン（Alden）Plaza／プラザラスト … <b>US 10D</b></li>
+<li>オールデン（Alden）Trubalance／トゥルーバランスラスト … <b>US 10D</b></li>
+<li>オールデン（Alden）Van／ヴァンラスト … <b>US 10D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）511 … <b>US 10.5D</b></li>
+<li>アレンエドモンズ（Allen Edmonds）65 … <b>US 10.5D</b></li>
+<li>カルミナ（Carmina）Forest … <b>UK 9.5E</b></li>
+<li>カルミナ（Carmina）Rain … <b>UK 9.5EE</b></li>
+<li>クロケット＆ジョーンズ（Crockett&amp;Jones）325 … <b>UK 9.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）363mod … <b>UK 9.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）74945 … <b>UK 9.5E</b></li>
+<li>エンツォボナフェ（Enzo Bonafe）946 … <b>UK 9F</b></li>
+<li>グラントストーン（Grant Stone）Leo … <b>US 10D</b></li>
+<li>ジョンロブ（John Lobb）7000 … <b>UK 9.5E</b></li>
+<li>メルミン（Meermin）Hiro … <b>UK 9.5E</b></li>
+<li>メルミン（Meermin）Rui … <b>UK 9.5D</b></li>
+<li>ランコート（Rancourt）114 … <b>US 10D</b></li>
+<li>レッドウィング（Red Wing）8 … <b>US 10D</b></li>
+<li>トリッカーズ（Tricker&#x27;s）4497S … <b>UK 9.55</b></li>
+<li>バイバーグ（Viberg）1035 … <b>US 10.5B</b></li>
+</ul>
+</details>
+</section>
+<!--SEO-END-->
+
+  <section class="notes">
+    <div>
+      <h4>どう計算しているか</h4>
+      <p class="formula">その木型で最適なサイズ<br>＝ その人の足の大きさ ＋ 木型の補正値</p>
+      <p>同じ人が複数のブランドを持っていれば、そのたびに木型同士の差が1本決まります。それを1,772件ぶん集めて、全体の誤差が最小になるよう一斉に解いています。</p>
+      <p>ウィズ（幅）は<b>1段あたり0.25cm</b>の長さに換算して補正しています。幅を広げると、その分だけ短いサイズで足りるためです。</p>
+    </div>
+    <div>
+      <h4>限界</h4>
+      <ul>
+        <li>467木型のうち、記録が3件以上あるのは<b>146</b>だけです。それ以外は1〜2人の値をなぞっているに過ぎません。</li>
+        <li>甲の高さは扱えていません。パラブーツ シャンボードのように甲で決まる靴は外しやすいです。</li>
+        <li>フィット感（「きつい」「ジャスト」）は文章から機械的に判定しています。</li>
+        <li>型式のプルダウンに載っているのは<b>107件</b>だけです。無い型式は、木型を直接選んでください。</li>
+        <li>最後は試着が確実です。これは試着できないときの当たりをつける道具です。</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <span>出典：日本語の革靴ブログ19人分</span>
+    <span><a href="https://www.skoaktiebolaget.com/pages/last-comparisons">Skoaktiebolaget Last Comparisons</a></span>
+    <span><a href="https://web.archive.org/web/20220116002727/https://dslaw.github.io/goodyearwelt-sizes/models.html">r/goodyearwelt Manufacturer Last Sizing</a></span>
+  </footer>
+</div>
+
+<script type="application/json" id="lookup-data">[{"brand":"Alden","model":"1339 chukka","last":"Barrie"},{"brand":"Alden","model":"1447","last":"Barrie"},{"brand":"Alden","model":"1878","last":"Modified"},{"brand":"Alden","model":"29331","last":"Barrie"},{"brand":"Alden","model":"2937F","last":"Barrie"},{"brand":"Alden","model":"379X","last":"Military"},{"brand":"Alden","model":"41814H","last":"Modified"},{"brand":"Alden","model":"45067","last":"Military"},{"brand":"Alden","model":"45918H","last":"Military"},{"brand":"Alden","model":"53460","last":"Modified"},{"brand":"Alden","model":"5367","last":"Military"},{"brand":"Alden","model":"53711","last":"Military"},{"brand":"Alden","model":"53713","last":"Military"},{"brand":"Alden","model":"54321","last":"Modified"},{"brand":"Alden","model":"54331","last":"Modified"},{"brand":"Alden","model":"54411","last":"Modified"},{"brand":"Alden","model":"563","last":"Aberdeen"},{"brand":"Alden","model":"56610","last":"Modified"},{"brand":"Alden","model":"6221L","last":"Van"},{"brand":"Alden","model":"6224L","last":"Van"},{"brand":"Alden","model":"63088","last":"Truflare"},{"brand":"Alden","model":"664","last":"Aberdeen"},{"brand":"Alden","model":"693","last":"Aberdeen"},{"brand":"Alden","model":"86911H","last":"Modified"},{"brand":"Alden","model":"87150","last":"Barrie"},{"brand":"Alden","model":"911","last":"Hampton"},{"brand":"Alden","model":"94327","last":"Barrie"},{"brand":"Alden","model":"954","last":"Aberdeen"},{"brand":"Alden","model":"966","last":"Aberdeen"},{"brand":"Alden","model":"975","last":"Barrie"},{"brand":"Alden","model":"9751","last":"Barrie"},{"brand":"Alden","model":"97522","last":"Barrie"},{"brand":"Alden","model":"97896","last":"Barrie"},{"brand":"Alden","model":"986","last":"Van"},{"brand":"Alden","model":"990","last":"Barrie"},{"brand":"Alden","model":"D5706C","last":"Barrie"},{"brand":"Alden","model":"D7507F","last":"Plaza"},{"brand":"Alden","model":"D9928","last":"Barrie"},{"brand":"Alden","model":"N1803","last":"Barrie"},{"brand":"Alden","model":"N4803H","last":"Military"},{"brand":"Alden","model":"N5510","last":"Modified"},{"brand":"Alden","model":"N5609","last":"Modified"},{"brand":"Alden","model":"N8204","last":"Van"},{"brand":"Alden","model":"N9402","last":"Modified"},{"brand":"Alden","model":"N9409","last":"Van"},{"brand":"Alden","model":"NST","last":"Aberdeen"},{"brand":"Alden","model":"suede loafer","last":"Van"},{"brand":"Alfred Sargent","model":"4054","last":"100"},{"brand":"Alfred Sargent","model":"Hunt","last":"109"},{"brand":"Alfred Sargent","model":"Ramsey","last":"99"},{"brand":"Allen Edmonds","model":"Boulevard","last":"Boulevard"},{"brand":"Allen Edmonds","model":"Brentwood","last":"5"},{"brand":"Allen Edmonds","model":"Chester","last":"3"},{"brand":"Allen Edmonds","model":"Fifth Avenue","last":"65"},{"brand":"Allen Edmonds","model":"Leeds","last":"511"},{"brand":"Allen Edmonds","model":"Park Avenue","last":"65"},{"brand":"Arch Kerry","model":"S-811","last":"アーチーラスト"},{"brand":"COL","model":"Adelade","last":"内羽根"},{"brand":"Carmina","model":"865","last":"Rain"},{"brand":"Cheaney","model":"Crowfileld","last":"1886"},{"brand":"Cheaney","model":"Francis","last":"6184"},{"brand":"Cheaney","model":"HAWARD R","last":"5203"},{"brand":"Cheaney","model":"Lowry","last":"1886"},{"brand":"Church's","model":"Burwood","last":"81"},{"brand":"Church's","model":"Consul","last":"173"},{"brand":"Church's","model":"Messenger","last":"73"},{"brand":"Church's","model":"Shannon","last":"103"},{"brand":"Church's","model":"グラフトン","last":"173"},{"brand":"Church's","model":"コンサル","last":"173"},{"brand":"Church's","model":"シャノン","last":"103"},{"brand":"Church's","model":"チェットウィンド","last":"173"},{"brand":"Church's","model":"ディプロマット","last":"173"},{"brand":"Church's","model":"バーウッド","last":"81"},{"brand":"Church's","model":"フェアフィールド","last":"81"},{"brand":"Church's","model":"ライダー","last":"81"},{"brand":"Church's","model":"ライダー3","last":"81"},{"brand":"Crockett&Jones","model":"Albany 4","last":"367"},{"brand":"Crockett&Jones","model":"Alex","last":"348"},{"brand":"Crockett&Jones","model":"Archie","last":"228"},{"brand":"Crockett&Jones","model":"Arden","last":"341"},{"brand":"Crockett&Jones","model":"Argyll","last":"379"},{"brand":"Crockett&Jones","model":"Ascott 2","last":"375"},{"brand":"Crockett&Jones","model":"Ashdown","last":"341"},{"brand":"Crockett&Jones","model":"Audley","last":"337"},{"brand":"Crockett&Jones","model":"BRIMSTONE","last":"302"},{"brand":"Crockett&Jones","model":"Belgrave","last":"337"},{"brand":"Crockett&Jones","model":"Belgrave 3","last":"367"},{"brand":"Crockett&Jones","model":"Boston","last":"314"},{"brand":"Crockett&Jones","model":"Boston 2","last":"376"},{"brand":"Crockett&Jones","model":"Bradford","last":"341"},{"brand":"Crockett&Jones","model":"Brecon","last":"341"},{"brand":"Crockett&Jones","model":"CHEVIOT","last":"335"},{"brand":"Crockett&Jones","model":"Camberley","last":"348"},{"brand":"Crockett&Jones","model":"Camden","last":"375"},{"brand":"Crockett&Jones","model":"Cavendish","last":"325"},{"brand":"Crockett&Jones","model":"Cavendish 3","last":"375"},{"brand":"Crockett&Jones","model":"Chelsea 11","last":"335"},{"brand":"Crockett&Jones","model":"Chelsea 5","last":"335"},{"brand":"Crockett&Jones","model":"Chelsea 8","last":"341"},{"brand":"Crockett&Jones","model":"Chepstow","last":"325"},{"brand":"Crockett&Jones","model":"Chertsey","last":"224"},{"brand":"Crockett&Jones","model":"Chiltern","last":"224"},{"brand":"Crockett&Jones","model":"Clifford 2","last":"367"},{"brand":"Crockett&Jones","model":"Coniston","last":"325"},{"brand":"Crockett&Jones","model":"Connaught","last":"236"},{"brand":"Crockett&Jones","model":"Connaught 2","last":"379"},{"brand":"Crockett&Jones","model":"Elgin","last":"365"},{"brand":"Crockett&Jones","model":"Falmouth","last":"376"},{"brand":"Crockett&Jones","model":"Finchley 2","last":"376"},{"brand":"Crockett&Jones","model":"Goodwood","last":"379"},{"brand":"Crockett&Jones","model":"Grantham 2","last":"376"},{"brand":"Crockett&Jones","model":"Grasmere","last":"325"},{"brand":"Crockett&Jones","model":"Grizedale","last":"228"},{"brand":"Crockett&Jones","model":"Hallam","last":"348"},{"brand":"Crockett&Jones","model":"Hamilton","last":"236"},{"brand":"Crockett&Jones","model":"Hardwick","last":"341"},{"brand":"Crockett&Jones","model":"Harlech","last":"341"},{"brand":"Crockett&Jones","model":"Harris","last":"335"},{"brand":"Crockett&Jones","model":"Harvard","last":"314"},{"brand":"Crockett&Jones","model":"Harvard 2","last":"376"},{"brand":"Crockett&Jones","model":"Henley 3","last":"375"},{"brand":"Crockett&Jones","model":"Highbury","last":"348"},{"brand":"Crockett&Jones","model":"Highbury 2","last":"348"},{"brand":"Crockett&Jones","model":"Islay","last":"365"},{"brand":"Crockett&Jones","model":"James","last":"348"},{"brand":"Crockett&Jones","model":"Jersey","last":"375"},{"brand":"Crockett&Jones","model":"Kelso","last":"365"},{"brand":"Crockett&Jones","model":"Kensington","last":"341"},{"brand":"Crockett&Jones","model":"Kew","last":"367"},{"brand":"Crockett&Jones","model":"Lanark 5","last":"375"},{"brand":"Crockett&Jones","model":"Lincoln","last":"314"},{"brand":"Crockett&Jones","model":"Lingfield","last":"348"},{"brand":"Crockett&Jones","model":"Lowndes","last":"348"},{"brand":"Crockett&Jones","model":"Lowndes 4","last":"379"},{"brand":"Crockett&Jones","model":"Merton","last":"348"},{"brand":"Crockett&Jones","model":"Monkton","last":"348"},{"brand":"Crockett&Jones","model":"Onslow 3","last":"375"},{"brand":"Crockett&Jones","model":"Overton","last":"341"},{"brand":"Crockett&Jones","model":"Pembroke","last":"325"},{"brand":"Crockett&Jones","model":"Radstock","last":"341"},{"brand":"Crockett&Jones","model":"Richmond 2","last":"376"},{"brand":"Crockett&Jones","model":"Ripon","last":"379"},{"brand":"Crockett&Jones","model":"Salcombe","last":"376"},{"brand":"Crockett&Jones","model":"Salcombe 2","last":"376"},{"brand":"Crockett&Jones","model":"Savile","last":"337"},{"brand":"Crockett&Jones","model":"Savile 4","last":"367"},{"brand":"Crockett&Jones","model":"Snowdon","last":"228"},{"brand":"Crockett&Jones","model":"Sydney","last":"341"},{"brand":"Crockett&Jones","model":"Teign","last":"341"},{"brand":"Crockett&Jones","model":"Tetbury","last":"348"},{"brand":"Crockett&Jones","model":"Upton","last":"379"},{"brand":"Crockett&Jones","model":"Westbourne","last":"348"},{"brand":"Crockett&Jones","model":"Westfield","last":"341"},{"brand":"Crockett&Jones","model":"Westgate 2","last":"379"},{"brand":"Crockett&Jones","model":"キャベンディッシュ3","last":"375"},{"brand":"Crockett&Jones","model":"コニストン2","last":"375"},{"brand":"Crockett&Jones","model":"タッセルローファー AUBERGINE","last":"348"},{"brand":"Crockett&Jones","model":"チャートシー CHERTSEY","last":"224"},{"brand":"Crockett&Jones","model":"ハーバード2 アンラインドローファー","last":"376"},{"brand":"Crockett&Jones","model":"ボストン2","last":"348"},{"brand":"Edward Green","model":"BURNHAM","last":"888"},{"brand":"Edward Green","model":"Berkeley","last":"82"},{"brand":"Edward Green","model":"Berkley","last":"82"},{"brand":"Edward Green","model":"Bunbury","last":"88"},{"brand":"Edward Green","model":"Chelsea","last":"202"},{"brand":"Edward Green","model":"DAWNING","last":"82"},{"brand":"Edward Green","model":"Dover","last":"32"},{"brand":"Edward Green","model":"Falmouth","last":"202"},{"brand":"Edward Green","model":"GRESHAM ジョッパーブーツ","last":"82"},{"brand":"Edward Green","model":"Gleneagle","last":"202"},{"brand":"Edward Green","model":"LICHFIELD","last":"82"},{"brand":"Edward Green","model":"MALVERN","last":"82"},{"brand":"Edward Green","model":"アデレイド","last":"888"},{"brand":"Edward Green","model":"アンラインドチャッカ","last":"202"},{"brand":"Edward Green","model":"アンラインドチャッカブーツ","last":"82"},{"brand":"Edward Green","model":"アンラインドドーバー","last":"202"},{"brand":"Edward Green","model":"インヴァネス","last":"888"},{"brand":"Edward Green","model":"ウエストミンスター","last":"202"},{"brand":"Edward Green","model":"ウォルコット","last":"888"},{"brand":"Edward Green","model":"カドガン","last":"202"},{"brand":"Edward Green","model":"カンタベリー","last":"606"},{"brand":"Edward Green","model":"カーネギー","last":"82"},{"brand":"Edward Green","model":"クレイドン","last":"82"},{"brand":"Edward Green","model":"コンビ メダリオンキャップトゥ","last":"202"},{"brand":"Edward Green","model":"コンビブーツ","last":"82"},{"brand":"Edward Green","model":"サイドエラスティック","last":"82"},{"brand":"Edward Green","model":"チェルシー","last":"202"},{"brand":"Edward Green","model":"ドーバー","last":"32"},{"brand":"Edward Green","model":"ドーバー ナイトシェード","last":"606"},{"brand":"Edward Green","model":"ニューマーケット サイドゴアブーツ","last":"82"},{"brand":"Edward Green","model":"バークレー","last":"202"},{"brand":"Edward Green","model":"ファルカーク FALKIRK","last":"202"},{"brand":"Edward Green","model":"メダリオンキャップトゥ","last":"202"},{"brand":"Edward Green","model":"（HARDY","last":"82"},{"brand":"Foster & Son","model":"Sandringham","last":"66"},{"brand":"Gaziano&Girling","model":"HUGHES","last":"MH71"},{"brand":"Gaziano&Girling","model":"STAMFORD","last":"MH71"},{"brand":"Gaziano&Girling","model":"アンティーブス ANTIBES","last":"KN14"},{"brand":"IRONDRESS","model":"IRONDRESS","last":"IRON"},{"brand":"J.M. Weston","model":"180","last":"41"},{"brand":"Jalan Sriwijaya","model":"98655","last":"Edward"},{"brand":"John Lobb","model":"2010年イヤーモデル","last":"7000"},{"brand":"John Lobb","model":"ALDER","last":"8695"},{"brand":"John Lobb","model":"ALFORD","last":"7000"},{"brand":"John Lobb","model":"City","last":"7000"},{"brand":"John Lobb","model":"FREDDI フレディ","last":"7000"},{"brand":"John Lobb","model":"HUTTON","last":"7000"},{"brand":"John Lobb","model":"LAWRY","last":"8695"},{"brand":"John Lobb","model":"Lopez","last":"4395"},{"brand":"John Lobb","model":"NEWBY","last":"7000"},{"brand":"John Lobb","model":"NEWLYN","last":"8695"},{"brand":"John Lobb","model":"REDMIER","last":"7000"},{"brand":"John Lobb","model":"WINDNER","last":"8695"},{"brand":"John Lobb","model":"William","last":"9795"},{"brand":"John Lobb","model":"アデレイド","last":"8695"},{"brand":"John Lobb","model":"ウィリアム","last":"9795"},{"brand":"John Lobb","model":"ウィリアム2","last":"9795"},{"brand":"John Lobb","model":"エドワード アンラインド スリッポン","last":"7000"},{"brand":"John Lobb","model":"シティ","last":"8695"},{"brand":"John Lobb","model":"シティ2","last":"7000"},{"brand":"John Lobb","model":"シャンボード","last":"8695"},{"brand":"John Lobb","model":"ジャーミン2","last":"7000"},{"brand":"John Lobb","model":"ジャーミン3","last":"7000"},{"brand":"John Lobb","model":"フィリップ","last":"7000"},{"brand":"John Lobb","model":"フィリップ2","last":"7000"},{"brand":"John Lobb","model":"マンチェスター","last":"7000"},{"brand":"John Lobb","model":"ロペス","last":"4395"},{"brand":"John Lobb","model":"伊勢丹10周年記念モデル","last":"7000"},{"brand":"RAYMAR","model":"KENT","last":"5722"},{"brand":"RAYMAR","model":"Lessat","last":"401"},{"brand":"RAYMAR","model":"RAIN SERIES","last":"5722"},{"brand":"Sanders","model":"1384","last":"–"},{"brand":"Tricker's","model":"BELGRAVE","last":"4537"},{"brand":"Tricker's","model":"Bourton","last":"4444"},{"brand":"Tricker's","model":"Burford","last":"4497S"},{"brand":"Tricker's","model":"Daniel Tramping","last":"4497S"},{"brand":"Tricker's","model":"Evedon","last":"4497S"},{"brand":"Tricker's","model":"Grassmere","last":"4497S"},{"brand":"Tricker's","model":"Henry Country Dealer","last":"4444"},{"brand":"Tricker's","model":"Kilsby","last":"4497S"},{"brand":"Tricker's","model":"Matlock","last":"4497S"},{"brand":"Tricker's","model":"NATURAL WOOD","last":"4444"},{"brand":"Tricker's","model":"Stephen Low","last":"4497S"},{"brand":"Tricker's","model":"Stow","last":"4497S"},{"brand":"Tricker's","model":"Woodstock","last":"4497S"},{"brand":"US Navy","model":"Service Shoes","last":"–"},{"brand":"VASS","model":"Budapest","last":"P2"},{"brand":"VASS","model":"Budapest Oxford","last":"U"},{"brand":"VASS","model":"Italian Oxford","last":"F"},{"brand":"VASS","model":"London-3eyelet","last":"K"},{"brand":"VASS","model":"Slipper","last":"P"},{"brand":"YEOSSAL","model":"Andmore","last":"DR70"},{"brand":"三陽山長","model":"悠一","last":"R2013"}]</script>
+<script type="application/json" id="model-data">{"k_width":0.25,"global_sd":0.207,"models":[{"id":"Alden|","brand":"Alden","last":"","offset":0.207,"n":3,"se":0.636,"system":"US","widths":["D"]},{"id":"Alden|379x","brand":"Alden","last":"379x","offset":0.074,"n":4,"se":0.231,"system":"US","widths":["D"]},{"id":"Alden|Aberdeen","brand":"Alden","last":"Aberdeen","offset":0.478,"n":24,"se":0.211,"system":"US","widths":["D","E","C"]},{"id":"Alden|Barrie","brand":"Alden","last":"Barrie","offset":-0.019,"n":101,"se":0.208,"system":"US","widths":["D","E","B","C","EE","EEE"]},{"id":"Alden|Commando","brand":"Alden","last":"Commando","offset":0.223,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Alden|Copley","brand":"Alden","last":"Copley","offset":0.08,"n":3,"se":0.298,"system":"US","widths":["E","D"]},{"id":"Alden|Grant","brand":"Alden","last":"Grant","offset":0.407,"n":16,"se":0.213,"system":"US","widths":["D","E"]},{"id":"Alden|Hampton","brand":"Alden","last":"Hampton","offset":0.544,"n":11,"se":0.216,"system":"US","widths":["D","C","E"]},{"id":"Alden|Indy Trubalance","brand":"Alden","last":"Indy Trubalance","offset":-0.101,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Alden|Leydon","brand":"Alden","last":"Leydon","offset":0.387,"n":14,"se":0.216,"system":"US","widths":["D","E"]},{"id":"Alden|Lhs Van","brand":"Alden","last":"Lhs Van","offset":0.471,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Alden|Military","brand":"Alden","last":"Military","offset":0.227,"n":5,"se":0.227,"system":"US","widths":["D","E"]},{"id":"Alden|Modified","brand":"Alden","last":"Modified","offset":0.196,"n":20,"se":0.212,"system":"US","widths":["D","E","C","EE","EEE"]},{"id":"Alden|Plaza","brand":"Alden","last":"Plaza","offset":0.153,"n":24,"se":0.211,"system":"US","widths":["D","E"]},{"id":"Alden|Tremont","brand":"Alden","last":"Tremont","offset":-0.053,"n":3,"se":0.441,"system":"US","widths":["D","C"]},{"id":"Alden|Trubalance","brand":"Alden","last":"Trubalance","offset":-0.008,"n":60,"se":0.208,"system":"US","widths":["D","E","B","EE","C","A","EEE"]},{"id":"Alden|Truflare","brand":"Alden","last":"Truflare","offset":0.2,"n":2,"se":0.444,"system":"US","widths":["D"]},{"id":"Alden|Van","brand":"Alden","last":"Van","offset":-0.072,"n":16,"se":0.216,"system":"US","widths":["D","E","B"]},{"id":"Alden|X Bb","brand":"Alden","last":"X Bb","offset":0.381,"n":2,"se":0.253,"system":"US","widths":["D"]},{"id":"Alfred Sargent|100","brand":"Alfred Sargent","last":"100","offset":0.308,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Alfred Sargent|109","brand":"Alfred Sargent","last":"109","offset":-0.192,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Alfred Sargent|87","brand":"Alfred Sargent","last":"87","offset":-0.021,"n":6,"se":0.223,"system":"UK","widths":["A","D"]},{"id":"Alfred Sargent|99","brand":"Alfred Sargent","last":"99","offset":-0.192,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Allen Edmonds|","brand":"Allen Edmonds","last":"","offset":0.322,"n":7,"se":0.221,"system":"US","widths":["D","E"]},{"id":"Allen Edmonds|108","brand":"Allen Edmonds","last":"108","offset":0.416,"n":9,"se":0.232,"system":"US","widths":["D","E","EEE"]},{"id":"Allen Edmonds|114","brand":"Allen Edmonds","last":"114","offset":-0.235,"n":1,"se":0.292,"system":"US","widths":["EEE"]},{"id":"Allen Edmonds|1757","brand":"Allen Edmonds","last":"1757","offset":0.334,"n":9,"se":0.218,"system":"US","widths":["D","EEE","E","B"]},{"id":"Allen Edmonds|1943","brand":"Allen Edmonds","last":"1943","offset":0.512,"n":11,"se":0.241,"system":"US","widths":["E","D","EEE"]},{"id":"Allen Edmonds|201","brand":"Allen Edmonds","last":"201","offset":0.201,"n":11,"se":0.216,"system":"US","widths":["D","E","EEE"]},{"id":"Allen Edmonds|201/65/79","brand":"Allen Edmonds","last":"201/65/79","offset":0.436,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Allen Edmonds|222","brand":"Allen Edmonds","last":"222","offset":0.539,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Allen Edmonds|2321","brand":"Allen Edmonds","last":"2321","offset":0.391,"n":6,"se":0.236,"system":"US","widths":["D","E","EEE"]},{"id":"Allen Edmonds|234","brand":"Allen Edmonds","last":"234","offset":0.363,"n":4,"se":0.25,"system":"US","widths":["D","E"]},{"id":"Allen Edmonds|3","brand":"Allen Edmonds","last":"3","offset":0.558,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Allen Edmonds|333","brand":"Allen Edmonds","last":"333","offset":0.293,"n":5,"se":0.227,"system":"US","widths":["D","E","C"]},{"id":"Allen Edmonds|5","brand":"Allen Edmonds","last":"5","offset":0.46,"n":6,"se":0.223,"system":"US","widths":["C","E","D","EEE"]},{"id":"Allen Edmonds|511","brand":"Allen Edmonds","last":"511","offset":0.41,"n":25,"se":0.211,"system":"US","widths":["D","E","B","EEE"]},{"id":"Allen Edmonds|511g","brand":"Allen Edmonds","last":"511g","offset":0.601,"n":2,"se":0.296,"system":"US","widths":["D","EEE"]},{"id":"Allen Edmonds|555","brand":"Allen Edmonds","last":"555","offset":0.204,"n":2,"se":0.32,"system":"US","widths":["D"]},{"id":"Allen Edmonds|606","brand":"Allen Edmonds","last":"606","offset":0.341,"n":1,"se":0.292,"system":"US","widths":["E"]},{"id":"Allen Edmonds|65","brand":"Allen Edmonds","last":"65","offset":0.292,"n":65,"se":0.211,"system":"US","widths":["D","E","EEE","B","EE","C"]},{"id":"Allen Edmonds|7","brand":"Allen Edmonds","last":"7","offset":0.676,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Allen Edmonds|79","brand":"Allen Edmonds","last":"79","offset":0.471,"n":2,"se":0.299,"system":"US","widths":["EEE","E"]},{"id":"Allen Edmonds|97","brand":"Allen Edmonds","last":"97","offset":0.385,"n":10,"se":0.217,"system":"US","widths":["D","EEE","E","EE","A"]},{"id":"Allen Edmonds|?","brand":"Allen Edmonds","last":"?","offset":0.225,"n":3,"se":0.475,"system":"US","widths":["D","E","EEE","B"]},{"id":"Allen Edmonds|B34","brand":"Allen Edmonds","last":"B34","offset":0.574,"n":2,"se":0.432,"system":"US","widths":["D"]},{"id":"Allen Edmonds|Boone","brand":"Allen Edmonds","last":"Boone","offset":0.926,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Allen Edmonds|Boulevard","brand":"Allen Edmonds","last":"Boulevard","offset":0.471,"n":1,"se":0.292,"system":"US","widths":["D","C"]},{"id":"Allen Edmonds|Colton","brand":"Allen Edmonds","last":"Colton","offset":0.075,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Allen Edmonds|Higgens Mill","brand":"Allen Edmonds","last":"Higgens Mill","offset":-0.016,"n":1,"se":0.292,"system":"US","widths":["E"]},{"id":"Allen Edmonds|Leeds","brand":"Allen Edmonds","last":"Leeds","offset":0.558,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Allen Edmonds|Park Ave","brand":"Allen Edmonds","last":"Park Ave","offset":0.399,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Allen Edmonds|Park Avenue","brand":"Allen Edmonds","last":"Park Avenue","offset":0.041,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Allen Edmonds|Shane","brand":"Allen Edmonds","last":"Shane","offset":0.471,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Allen Edmonds|Strand","brand":"Allen Edmonds","last":"Strand","offset":0.245,"n":2,"se":0.298,"system":"US","widths":["D"]},{"id":"Arch Kerry|アーチーラスト","brand":"Arch Kerry","last":"アーチーラスト","offset":0.558,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Barker|29","brand":"Barker","last":"29","offset":0.076,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Barker|460","brand":"Barker","last":"460","offset":-0.266,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Baudoin & Lange|","brand":"Baudoin & Lange","last":"","offset":-0.853,"n":1,"se":0.292,"system":"EU","widths":[]},{"id":"COL|内羽根","brand":"COL","last":"内羽根","offset":-25.562,"n":1,"se":0.292,"system":"EU","widths":[]},{"id":"Carlos Santos|160","brand":"Carlos Santos","last":"160","offset":-0.343,"n":6,"se":0.223,"system":"UK","widths":[]},{"id":"Carlos Santos|1944","brand":"Carlos Santos","last":"1944","offset":-0.139,"n":3,"se":0.239,"system":"UK","widths":[]},{"id":"Carlos Santos|234","brand":"Carlos Santos","last":"234","offset":-0.319,"n":12,"se":0.215,"system":"UK","widths":[]},{"id":"Carlos Santos|316","brand":"Carlos Santos","last":"316","offset":-0.324,"n":11,"se":0.216,"system":"UK","widths":[]},{"id":"Carlos Santos|333","brand":"Carlos Santos","last":"333","offset":-0.259,"n":6,"se":0.223,"system":"UK","widths":[]},{"id":"Carlos Santos|397","brand":"Carlos Santos","last":"397","offset":-0.269,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Carlos Santos|401","brand":"Carlos Santos","last":"401","offset":-0.154,"n":2,"se":0.253,"system":"UK","widths":[]},{"id":"Carmina|","brand":"Carmina","last":"","offset":0.48,"n":6,"se":0.223,"system":"UK","widths":[]},{"id":"Carmina|Detroit","brand":"Carmina","last":"Detroit","offset":-0.173,"n":14,"se":0.228,"system":"UK","widths":["EE","EEE"]},{"id":"Carmina|Detroit Eee","brand":"Carmina","last":"Detroit Eee","offset":-0.824,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Carmina|Forest","brand":"Carmina","last":"Forest","offset":0.129,"n":24,"se":0.214,"system":"UK","widths":["E","EEE"]},{"id":"Carmina|Forrest","brand":"Carmina","last":"Forrest","offset":0.326,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Carmina|Inca","brand":"Carmina","last":"Inca","offset":0.106,"n":10,"se":0.217,"system":"UK","widths":[]},{"id":"Carmina|Lloret","brand":"Carmina","last":"Lloret","offset":0.575,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Carmina|Llubi","brand":"Carmina","last":"Llubi","offset":0.091,"n":3,"se":0.333,"system":"UK","widths":[]},{"id":"Carmina|Luz Loafer","brand":"Carmina","last":"Luz Loafer","offset":-0.673,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Carmina|Madison Jumper Boots","brand":"Carmina","last":"Madison Jumper Boots","offset":0.077,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Carmina|Madison Oxford & Derby","brand":"Carmina","last":"Madison Oxford & Derby","offset":-0.673,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Carmina|Oscar","brand":"Carmina","last":"Oscar","offset":0.067,"n":13,"se":0.215,"system":"UK","widths":["E","EE"]},{"id":"Carmina|Oscaria Chelsea","brand":"Carmina","last":"Oscaria Chelsea","offset":-0.423,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Carmina|Rain","brand":"Carmina","last":"Rain","offset":-0.045,"n":33,"se":0.21,"system":"UK","widths":["EE","EEE"]},{"id":"Carmina|Robert","brand":"Carmina","last":"Robert","offset":0.302,"n":3,"se":0.239,"system":"UK","widths":[]},{"id":"Carmina|Simpson","brand":"Carmina","last":"Simpson","offset":0.35,"n":13,"se":0.215,"system":"UK","widths":[]},{"id":"Carmina|Soller","brand":"Carmina","last":"Soller","offset":-0.097,"n":10,"se":0.217,"system":"UK","widths":["E","EE"]},{"id":"Carmina|Uetam","brand":"Carmina","last":"Uetam","offset":-0.006,"n":4,"se":0.231,"system":"UK","widths":[]},{"id":"Cheaney|11028","brand":"Cheaney","last":"11028","offset":-0.061,"n":1,"se":0.292,"system":"UK","widths":["F"]},{"id":"Cheaney|125","brand":"Cheaney","last":"125","offset":-0.146,"n":2,"se":0.271,"system":"UK","widths":["F"]},{"id":"Cheaney|12508","brand":"Cheaney","last":"12508","offset":-0.777,"n":2,"se":0.253,"system":"US","widths":["F"]},{"id":"Cheaney|130","brand":"Cheaney","last":"130","offset":0.149,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Cheaney|1886","brand":"Cheaney","last":"1886","offset":-0.442,"n":1,"se":0.292,"system":"UK","widths":["F"]},{"id":"Cheaney|4436","brand":"Cheaney","last":"4436","offset":-0.139,"n":3,"se":0.239,"system":"UK","widths":["G"]},{"id":"Cheaney|5203","brand":"Cheaney","last":"5203","offset":0.058,"n":1,"se":0.292,"system":"UK","widths":["F"]},{"id":"Cheaney|5785/17","brand":"Cheaney","last":"5785/17","offset":-0.274,"n":1,"se":0.292,"system":"UK","widths":["F"]},{"id":"Cheaney|6184","brand":"Cheaney","last":"6184","offset":-0.442,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Church's|103","brand":"Church's","last":"103","offset":0.086,"n":2,"se":0.253,"system":"UK","widths":["F"]},{"id":"Church's|173","brand":"Church's","last":"173","offset":-0.222,"n":6,"se":0.226,"system":"UK","widths":["F","G"]},{"id":"Church's|73","brand":"Church's","last":"73","offset":0.336,"n":1,"se":0.292,"system":"UK","widths":["E","G"]},{"id":"Church's|81","brand":"Church's","last":"81","offset":0.128,"n":3,"se":0.239,"system":"UK","widths":["G"]},{"id":"Church's|Shannon","brand":"Church's","last":"Shannon","offset":-0.175,"n":1,"se":0.292,"system":"UK","widths":["G"]},{"id":"Clarks|","brand":"Clarks","last":"","offset":0.076,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Clarks|Desert Boot","brand":"Clarks","last":"Desert Boot","offset":0.012,"n":2,"se":0.253,"system":"US","widths":["D"]},{"id":"Clarks|Desert London","brand":"Clarks","last":"Desert London","offset":0.076,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Crockett&Jones|","brand":"Crockett&Jones","last":"","offset":11.675,"n":2,"se":15.596,"system":"UK","widths":[]},{"id":"Crockett&Jones|(全モデル)","brand":"Crockett&Jones","last":"(全モデル)","offset":-0.052,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Crockett&Jones|-","brand":"Crockett&Jones","last":"-","offset":0.03,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Crockett&Jones|224","brand":"Crockett&Jones","last":"224","offset":0.072,"n":4,"se":0.231,"system":"UK","widths":["E"]},{"id":"Crockett&Jones|228","brand":"Crockett&Jones","last":"228","offset":-0.398,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Crockett&Jones|236","brand":"Crockett&Jones","last":"236","offset":-0.174,"n":4,"se":0.231,"system":"UK","widths":["E"]},{"id":"Crockett&Jones|238","brand":"Crockett&Jones","last":"238","offset":-0.058,"n":2,"se":0.274,"system":"UK","widths":["E"]},{"id":"Crockett&Jones|240","brand":"Crockett&Jones","last":"240","offset":-0.075,"n":3,"se":0.239,"system":"US","widths":["C"]},{"id":"Crockett&Jones|302","brand":"Crockett&Jones","last":"302","offset":-0.442,"n":1,"se":0.292,"system":"UK","widths":["E","EE"]},{"id":"Crockett&Jones|314","brand":"Crockett&Jones","last":"314","offset":-0.063,"n":4,"se":0.257,"system":"UK","widths":["E"]},{"id":"Crockett&Jones|325","brand":"Crockett&Jones","last":"325","offset":-0.139,"n":18,"se":0.212,"system":"UK","widths":["E","D"]},{"id":"Crockett&Jones|335","brand":"Crockett&Jones","last":"335","offset":-0.11,"n":7,"se":0.252,"system":"UK","widths":["E"]},{"id":"Crockett&Jones|337","brand":"Crockett&Jones","last":"337","offset":-0.187,"n":3,"se":0.239,"system":"UK","widths":["E"]},{"id":"Crockett&Jones|337/363","brand":"Crockett&Jones","last":"337/363","offset":-0.064,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Crockett&Jones|340","brand":"Crockett&Jones","last":"340","offset":0.058,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Crockett&Jones|341","brand":"Crockett&Jones","last":"341","offset":-0.049,"n":5,"se":0.227,"system":"UK","widths":["E","G"]},{"id":"Crockett&Jones|341 - Harlech Shell Boot","brand":"Crockett&Jones","last":"341 - Harlech Shell Boot","offset":-0.574,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Crockett&Jones|348","brand":"Crockett&Jones","last":"348","offset":-0.098,"n":7,"se":0.221,"system":"UK","widths":["E"]},{"id":"Crockett&Jones|365","brand":"Crockett&Jones","last":"365","offset":-0.456,"n":3,"se":0.335,"system":"UK","widths":["E"]},{"id":"Crockett&Jones|367","brand":"Crockett&Jones","last":"367","offset":-0.414,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Crockett&Jones|375","brand":"Crockett&Jones","last":"375","offset":0.086,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Crockett&Jones|376","brand":"Crockett&Jones","last":"376","offset":0.093,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Crockett&Jones|379","brand":"Crockett&Jones","last":"379","offset":0.086,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Crockett&Jones|Marlow For Ralph Lauren","brand":"Crockett&Jones","last":"Marlow For Ralph Lauren","offset":0.576,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Crockett&Jones|Shell Boots For Peal & Co","brand":"Crockett&Jones","last":"Shell Boots For Peal & Co","offset":0.076,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Edward Green|","brand":"Edward Green","last":"","offset":-5.064,"n":1,"se":0.292,"system":"EU","widths":[]},{"id":"Edward Green|(全モデル)","brand":"Edward Green","last":"(全モデル)","offset":-0.052,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Edward Green|-","brand":"Edward Green","last":"-","offset":0.03,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Edward Green|202","brand":"Edward Green","last":"202","offset":0.184,"n":13,"se":0.215,"system":"UK","widths":["E","D","F"]},{"id":"Edward Green|32","brand":"Edward Green","last":"32","offset":0.234,"n":3,"se":0.239,"system":"UK","widths":["D","E"]},{"id":"Edward Green|606","brand":"Edward Green","last":"606","offset":0.119,"n":2,"se":0.312,"system":"UK","widths":["E"]},{"id":"Edward Green|606/82","brand":"Edward Green","last":"606/82","offset":-0.064,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Edward Green|64","brand":"Edward Green","last":"64","offset":-0.006,"n":3,"se":0.239,"system":"UK","widths":["E","F"]},{"id":"Edward Green|82","brand":"Edward Green","last":"82","offset":0.216,"n":6,"se":0.224,"system":"UK","widths":["E","F"]},{"id":"Edward Green|82/888","brand":"Edward Green","last":"82/888","offset":-0.064,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Edward Green|82e","brand":"Edward Green","last":"82e","offset":0.347,"n":4,"se":0.236,"system":"US","widths":["E"]},{"id":"Edward Green|88","brand":"Edward Green","last":"88","offset":0.308,"n":2,"se":0.253,"system":"UK","widths":["E"]},{"id":"Edward Green|888","brand":"Edward Green","last":"888","offset":0.163,"n":2,"se":0.253,"system":"UK","widths":["F","E"]},{"id":"Enzo Bonafe|062","brand":"Enzo Bonafe","last":"062","offset":-0.026,"n":5,"se":0.227,"system":"UK","widths":[]},{"id":"Enzo Bonafe|173","brand":"Enzo Bonafe","last":"173","offset":-0.209,"n":4,"se":0.261,"system":"UK","widths":["F"]},{"id":"Enzo Bonafe|360mod","brand":"Enzo Bonafe","last":"360mod","offset":0.561,"n":2,"se":0.253,"system":"UK","widths":[]},{"id":"Enzo Bonafe|363mod","brand":"Enzo Bonafe","last":"363mod","offset":-0.071,"n":23,"se":0.211,"system":"UK","widths":["E","F","G"]},{"id":"Enzo Bonafe|556","brand":"Enzo Bonafe","last":"556","offset":-0.433,"n":2,"se":0.253,"system":"UK","widths":[]},{"id":"Enzo Bonafe|74945","brand":"Enzo Bonafe","last":"74945","offset":-0.058,"n":23,"se":0.211,"system":"UK","widths":["E","F"]},{"id":"Enzo Bonafe|773","brand":"Enzo Bonafe","last":"773","offset":-0.016,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Enzo Bonafe|804","brand":"Enzo Bonafe","last":"804","offset":-0.453,"n":9,"se":0.272,"system":"UK","widths":["E","F"]},{"id":"Enzo Bonafe|946","brand":"Enzo Bonafe","last":"946","offset":-0.16,"n":17,"se":0.213,"system":"UK","widths":["F"]},{"id":"Enzo Bonafe|Ball","brand":"Enzo Bonafe","last":"Ball","offset":0.067,"n":2,"se":0.253,"system":"UK","widths":[]},{"id":"Enzo Bonafe|MOD 363","brand":"Enzo Bonafe","last":"MOD 363","offset":-0.487,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Enzo Bonafe|double monk","brand":"Enzo Bonafe","last":"double monk","offset":-0.024,"n":1,"se":0.292,"system":"UK","widths":["D"]},{"id":"Florsheim|?","brand":"Florsheim","last":"?","offset":0.621,"n":4,"se":0.231,"system":"US","widths":["D","C","E"]},{"id":"Florsheim|Imperial","brand":"Florsheim","last":"Imperial","offset":0.449,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Foot So Port|?","brand":"Foot So Port","last":"?","offset":0.308,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Foster & Son|05","brand":"Foster & Son","last":"05","offset":0.057,"n":2,"se":0.365,"system":"UK","widths":["E","F"]},{"id":"Foster & Son|18","brand":"Foster & Son","last":"18","offset":0.057,"n":2,"se":0.365,"system":"UK","widths":["E","F"]},{"id":"Foster & Son|66","brand":"Foster & Son","last":"66","offset":0.15,"n":3,"se":0.239,"system":"UK","widths":["E","F"]},{"id":"G.H.BASS|Logan","brand":"G.H.BASS","last":"Logan","offset":-0.052,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"GRENSON|201","brand":"GRENSON","last":"201","offset":0.686,"n":2,"se":0.334,"system":"US","widths":["D"]},{"id":"Gaziano&Girling|","brand":"Gaziano&Girling","last":"","offset":0.244,"n":5,"se":0.227,"system":"UK","widths":["E","F"]},{"id":"Gaziano&Girling|-","brand":"Gaziano&Girling","last":"-","offset":0.03,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Gaziano&Girling|DG70","brand":"Gaziano&Girling","last":"DG70","offset":0.103,"n":1,"se":0.292,"system":"UK","widths":["F"]},{"id":"Gaziano&Girling|GG06","brand":"Gaziano&Girling","last":"GG06","offset":0.103,"n":1,"se":0.292,"system":"UK","widths":["F"]},{"id":"Gaziano&Girling|KN14","brand":"Gaziano&Girling","last":"KN14","offset":0.103,"n":1,"se":0.292,"system":"UK","widths":["F"]},{"id":"Gaziano&Girling|MH71","brand":"Gaziano&Girling","last":"MH71","offset":0.103,"n":1,"se":0.292,"system":"UK","widths":["F"]},{"id":"George Cleverley|340","brand":"George Cleverley","last":"340","offset":0.058,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Grant Stone|","brand":"Grant Stone","last":"","offset":0.719,"n":4,"se":0.38,"system":"US","widths":["D"]},{"id":"Grant Stone|Alexander","brand":"Grant Stone","last":"Alexander","offset":-0.008,"n":4,"se":0.353,"system":"US","widths":["D","E"]},{"id":"Grant Stone|Leo","brand":"Grant Stone","last":"Leo","offset":0.021,"n":24,"se":0.212,"system":"US","widths":["D","E","EEE"]},{"id":"Grant Stone|Leo Lwb","brand":"Grant Stone","last":"Leo Lwb","offset":-0.029,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Grant Stone|Oliver","brand":"Grant Stone","last":"Oliver","offset":-0.101,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Hanover|?","brand":"Hanover","last":"?","offset":0.558,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Herring|220","brand":"Herring","last":"220","offset":-0.811,"n":1,"se":0.292,"system":"US","widths":["G"]},{"id":"IRONDRESS|IRON","brand":"IRONDRESS","last":"IRON","offset":-0.442,"n":1,"se":0.292,"system":"US","widths":["E"]},{"id":"J.M. Weston|180 Loafer","brand":"J.M. Weston","last":"180 Loafer","offset":-0.914,"n":1,"se":0.292,"system":"FR","widths":["D"]},{"id":"J.M. Weston|300/376","brand":"J.M. Weston","last":"300/376","offset":0.336,"n":1,"se":0.292,"system":"FR","widths":["E"]},{"id":"J.M. Weston|41","brand":"J.M. Weston","last":"41","offset":-1.067,"n":2,"se":0.253,"system":"FR","widths":["C"]},{"id":"J.M. Weston|598 Half Hunt","brand":"J.M. Weston","last":"598 Half Hunt","offset":0.086,"n":1,"se":0.292,"system":"FR","widths":["D"]},{"id":"J.M. Weston|641 Golf","brand":"J.M. Weston","last":"641 Golf","offset":-0.323,"n":4,"se":0.231,"system":"FR","widths":["E","D","C"]},{"id":"J.M. Weston|705 Chelsea","brand":"J.M. Weston","last":"705 Chelsea","offset":0.086,"n":1,"se":0.292,"system":"FR","widths":["D"]},{"id":"J.M. Weston|722 Jodhpur","brand":"J.M. Weston","last":"722 Jodhpur","offset":0.336,"n":1,"se":0.292,"system":"FR","widths":["E"]},{"id":"J.M. Weston|Roger","brand":"J.M. Weston","last":"Roger","offset":-0.524,"n":1,"se":0.292,"system":"FR","widths":["C"]},{"id":"Jalan Sriwijaya|Edward","brand":"Jalan Sriwijaya","last":"Edward","offset":-0.192,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"John Lobb|(Paris)","brand":"John Lobb","last":"(Paris)","offset":-0.552,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"John Lobb|-","brand":"John Lobb","last":"-","offset":-0.47,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"John Lobb|4395","brand":"John Lobb","last":"4395","offset":-0.414,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"John Lobb|7000","brand":"John Lobb","last":"7000","offset":-0.247,"n":15,"se":0.216,"system":"UK","widths":["E","F","EE","D"]},{"id":"John Lobb|8695","brand":"John Lobb","last":"8695","offset":-0.113,"n":5,"se":0.227,"system":"UK","widths":["E","F"]},{"id":"John Lobb|9795","brand":"John Lobb","last":"9795","offset":-0.085,"n":2,"se":0.274,"system":"UK","widths":["E"]},{"id":"John Lobb|Chambord","brand":"John Lobb","last":"Chambord","offset":-0.175,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Johnston&Murphy|?","brand":"Johnston&Murphy","last":"?","offset":0.558,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Lloyd Footwear|","brand":"Lloyd Footwear","last":"","offset":-0.425,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Loake|019","brand":"Loake","last":"019","offset":0.05,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Loake|024","brand":"Loake","last":"024","offset":-0.356,"n":2,"se":0.498,"system":"UK","widths":[]},{"id":"Loake|025","brand":"Loake","last":"025","offset":0.467,"n":3,"se":0.239,"system":"UK","widths":[]},{"id":"Loake|026","brand":"Loake","last":"026","offset":0.025,"n":3,"se":0.256,"system":"UK","widths":["G"]},{"id":"Loake|Buckingham Brogue","brand":"Loake","last":"Buckingham Brogue","offset":-0.279,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Loake|Bullet","brand":"Loake","last":"Bullet","offset":-0.788,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Loake|Capital","brand":"Loake","last":"Capital","offset":-0.239,"n":10,"se":0.217,"system":"UK","widths":["F"]},{"id":"Loake|Capitol","brand":"Loake","last":"Capitol","offset":-0.564,"n":1,"se":0.292,"system":"US","widths":["F"]},{"id":"Loake|Claridge","brand":"Loake","last":"Claridge","offset":-0.494,"n":2,"se":0.606,"system":"UK","widths":[]},{"id":"Loake|College","brand":"Loake","last":"College","offset":0.084,"n":2,"se":0.285,"system":"UK","widths":[]},{"id":"Loake|Jockey","brand":"Loake","last":"Jockey","offset":-0.475,"n":3,"se":0.256,"system":"UK","widths":["G"]},{"id":"Loake|Legend","brand":"Loake","last":"Legend","offset":-0.101,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Loake|Loafer","brand":"Loake","last":"Loafer","offset":-0.45,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Loake|Pennine","brand":"Loake","last":"Pennine","offset":-0.434,"n":4,"se":0.299,"system":"UK","widths":["G"]},{"id":"Loake|River","brand":"Loake","last":"River","offset":-0.45,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Loake|Tower","brand":"Loake","last":"Tower","offset":-0.247,"n":3,"se":0.239,"system":"UK","widths":[]},{"id":"Löf & Tung|","brand":"Löf & Tung","last":"","offset":-0.178,"n":14,"se":0.214,"system":"UK","widths":[]},{"id":"Löf & Tung|H","brand":"Löf & Tung","last":"H","offset":-0.066,"n":7,"se":0.251,"system":"UK","widths":[]},{"id":"Löf & Tung|H – E-width","brand":"Löf & Tung","last":"H – E-width","offset":0.143,"n":2,"se":0.253,"system":"UK","widths":[]},{"id":"Löf & Tung|H – F-width","brand":"Löf & Tung","last":"H – F-width","offset":-0.227,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Löf & Tung|L","brand":"Löf & Tung","last":"L","offset":-0.04,"n":7,"se":0.221,"system":"UK","widths":[]},{"id":"Löf & Tung|Loafer","brand":"Löf & Tung","last":"Loafer","offset":-0.252,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Löf & Tung|M","brand":"Löf & Tung","last":"M","offset":-0.079,"n":3,"se":0.239,"system":"UK","widths":[]},{"id":"Löf & Tung|P","brand":"Löf & Tung","last":"P","offset":0.084,"n":2,"se":0.285,"system":"UK","widths":[]},{"id":"Löf & Tung|R","brand":"Löf & Tung","last":"R","offset":-0.126,"n":6,"se":0.223,"system":"UK","widths":[]},{"id":"Löf & Tung|Slip-On","brand":"Löf & Tung","last":"Slip-On","offset":0.403,"n":4,"se":0.299,"system":"UK","widths":[]},{"id":"Löf & Tung|Slip-on","brand":"Löf & Tung","last":"Slip-on","offset":0.013,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Löf & Tung|T","brand":"Löf & Tung","last":"T","offset":-0.256,"n":11,"se":0.216,"system":"UK","widths":[]},{"id":"Löf & Tung|T loafer","brand":"Löf & Tung","last":"T loafer","offset":-0.119,"n":5,"se":0.234,"system":"UK","widths":[]},{"id":"Löf & Tung|loafer","brand":"Löf & Tung","last":"loafer","offset":-0.046,"n":3,"se":0.239,"system":"UK","widths":[]},{"id":"Meermin|","brand":"Meermin","last":"","offset":0.733,"n":3,"se":0.298,"system":"US","widths":["D"]},{"id":"Meermin|Dani","brand":"Meermin","last":"Dani","offset":-0.175,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Meermin|Elton","brand":"Meermin","last":"Elton","offset":0.113,"n":6,"se":0.223,"system":"UK","widths":["E"]},{"id":"Meermin|Hiro","brand":"Meermin","last":"Hiro","offset":0.065,"n":19,"se":0.213,"system":"UK","widths":["E","A"]},{"id":"Meermin|Hiro Derby","brand":"Meermin","last":"Hiro Derby","offset":-1.423,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Meermin|Hok","brand":"Meermin","last":"Hok","offset":-0.675,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Meermin|Jim","brand":"Meermin","last":"Jim","offset":-0.101,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Meermin|New Rey","brand":"Meermin","last":"New Rey","offset":-0.333,"n":3,"se":0.281,"system":"US","widths":[]},{"id":"Meermin|Nod","brand":"Meermin","last":"Nod","offset":-0.196,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Meermin|Olfe","brand":"Meermin","last":"Olfe","offset":0.25,"n":4,"se":0.231,"system":"UK","widths":[]},{"id":"Meermin|Ron","brand":"Meermin","last":"Ron","offset":-0.257,"n":4,"se":0.25,"system":"UK","widths":["E"]},{"id":"Meermin|Rui","brand":"Meermin","last":"Rui","offset":-0.128,"n":20,"se":0.224,"system":"UK","widths":["D"]},{"id":"Miyagi Kogyo|?","brand":"Miyagi Kogyo","last":"?","offset":-18.442,"n":1,"se":0.292,"system":"JP","widths":[]},{"id":"New Balance|-","brand":"New Balance","last":"-","offset":1.239,"n":2,"se":0.301,"system":"US","widths":["D"]},{"id":"Nicks|55","brand":"Nicks","last":"55","offset":-0.722,"n":1,"se":0.292,"system":"US","widths":["EE"]},{"id":"Nicks|55 Robert","brand":"Nicks","last":"55 Robert","offset":-0.311,"n":1,"se":0.292,"system":"US","widths":["E"]},{"id":"Oak Street|","brand":"Oak Street","last":"","offset":0.676,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Oak Street|555","brand":"Oak Street","last":"555","offset":0.102,"n":2,"se":0.296,"system":"US","widths":[]},{"id":"Oak Street|Elston","brand":"Oak Street","last":"Elston","offset":0.686,"n":4,"se":0.269,"system":"US","widths":["D"]},{"id":"Oak Street|Lakeshore","brand":"Oak Street","last":"Lakeshore","offset":0.602,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Paolo Scafora|","brand":"Paolo Scafora","last":"","offset":-0.647,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Paolo Scafora|Door","brand":"Paolo Scafora","last":"Door","offset":-0.45,"n":4,"se":0.231,"system":"UK","widths":[]},{"id":"Paolo Scafora|JL","brand":"Paolo Scafora","last":"JL","offset":0.093,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Paolo Scafora|JL/moc","brand":"Paolo Scafora","last":"JL/moc","offset":-0.487,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Paolo Scafora|R","brand":"Paolo Scafora","last":"R","offset":-0.408,"n":6,"se":0.223,"system":"UK","widths":[]},{"id":"Paolo Scafora|Vec","brand":"Paolo Scafora","last":"Vec","offset":-0.421,"n":6,"se":0.223,"system":"UK","widths":[]},{"id":"Paolo Scafora|loafer","brand":"Paolo Scafora","last":"loafer","offset":0.093,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Paraboot|?","brand":"Paraboot","last":"?","offset":-0.192,"n":1,"se":0.292,"system":"UK","widths":["F"]},{"id":"Paraboot|Avignon","brand":"Paraboot","last":"Avignon","offset":-0.3,"n":2,"se":0.445,"system":"UK","widths":[]},{"id":"Paraboot|Chambord","brand":"Paraboot","last":"Chambord","offset":-0.365,"n":3,"se":0.358,"system":"UK","widths":[]},{"id":"Paraboot|Michael","brand":"Paraboot","last":"Michael","offset":-0.145,"n":2,"se":0.35,"system":"EU","widths":[]},{"id":"Paraboot|Rance","brand":"Paraboot","last":"Rance","offset":-0.052,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Paraboot|William","brand":"Paraboot","last":"William","offset":0.086,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Quoddy|","brand":"Quoddy","last":"","offset":0.275,"n":24,"se":0.223,"system":"US","widths":["D","C","F","E"]},{"id":"Quoddy|Blucher","brand":"Quoddy","last":"Blucher","offset":0.438,"n":3,"se":0.388,"system":"US","widths":["D"]},{"id":"Quoddy|Bluchers","brand":"Quoddy","last":"Bluchers","offset":-0.064,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Quoddy|Boat Shoes","brand":"Quoddy","last":"Boat Shoes","offset":-0.006,"n":1,"se":0.292,"system":"US","widths":["EEE"]},{"id":"Quoddy|Canoe Shoes","brand":"Quoddy","last":"Canoe Shoes","offset":0.244,"n":1,"se":0.292,"system":"US","widths":["EEE"]},{"id":"Quoddy|Dorm Boot","brand":"Quoddy","last":"Dorm Boot","offset":-0.074,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Quoddy|Loafers","brand":"Quoddy","last":"Loafers","offset":-0.056,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Quoddy|Maliseet","brand":"Quoddy","last":"Maliseet","offset":0.015,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Quoddy|Maliseet Ranger Moc","brand":"Quoddy","last":"Maliseet Ranger Moc","offset":0.015,"n":1,"se":0.292,"system":"US","widths":["EEE"]},{"id":"RAYMAR|401","brand":"RAYMAR","last":"401","offset":-0.192,"n":1,"se":0.292,"system":"JP","widths":[]},{"id":"RAYMAR|5722","brand":"RAYMAR","last":"5722","offset":0.058,"n":1,"se":0.292,"system":"JP","widths":[]},{"id":"Rancourt|","brand":"Rancourt","last":"","offset":0.199,"n":4,"se":0.231,"system":"US","widths":["D","EE","E"]},{"id":"Rancourt|113 Loafer","brand":"Rancourt","last":"113 Loafer","offset":-0.673,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Rancourt|114","brand":"Rancourt","last":"114","offset":0.181,"n":16,"se":0.221,"system":"US","widths":["D","E","EE","C","B"]},{"id":"Rancourt|115","brand":"Rancourt","last":"115","offset":0.33,"n":6,"se":0.223,"system":"US","widths":["D","E"]},{"id":"Rancourt|2592","brand":"Rancourt","last":"2592","offset":0.283,"n":3,"se":0.306,"system":"US","widths":["D"]},{"id":"Rancourt|8","brand":"Rancourt","last":"8","offset":-0.064,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Rancourt|800","brand":"Rancourt","last":"800","offset":0.534,"n":7,"se":0.221,"system":"US","widths":["D"]},{"id":"Rancourt|800 Loafer","brand":"Rancourt","last":"800 Loafer","offset":-0.673,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Rancourt|Acadia","brand":"Rancourt","last":"Acadia","offset":0.426,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Rancourt|Beefroll Penny Loafers","brand":"Rancourt","last":"Beefroll Penny Loafers","offset":-0.601,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Rancourt|Cxl Boat Shoe","brand":"Rancourt","last":"Cxl Boat Shoe","offset":0.676,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Rancourt|John","brand":"Rancourt","last":"John","offset":0.427,"n":4,"se":0.246,"system":"US","widths":["D"]},{"id":"Rancourt|Loafer","brand":"Rancourt","last":"Loafer","offset":-0.159,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Rancourt|Ranger Moc","brand":"Rancourt","last":"Ranger Moc","offset":-0.016,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Rancourt|Shearling Lined Loafer","brand":"Rancourt","last":"Shearling Lined Loafer","offset":0.575,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Red Wing|","brand":"Red Wing","last":"","offset":0.256,"n":3,"se":0.241,"system":"US","widths":["D"]},{"id":"Red Wing|105 Moctoe And 106 Silversmith","brand":"Red Wing","last":"105 Moctoe And 106 Silversmith","offset":1.827,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Red Wing|108 Carol And 6 Chelsea","brand":"Red Wing","last":"108 Carol And 6 Chelsea","offset":1.327,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Red Wing|13D","brand":"Red Wing","last":"13D","offset":0.0,"n":1,"se":0.292,"system":"US","widths":["E"]},{"id":"Red Wing|210","brand":"Red Wing","last":"210","offset":0.557,"n":13,"se":0.215,"system":"US","widths":["D"]},{"id":"Red Wing|220","brand":"Red Wing","last":"220","offset":0.757,"n":2,"se":0.498,"system":"US","widths":["D"]},{"id":"Red Wing|224","brand":"Red Wing","last":"224","offset":-0.08,"n":4,"se":0.231,"system":"US","widths":["D"]},{"id":"Red Wing|225","brand":"Red Wing","last":"225","offset":0.614,"n":1,"se":0.292,"system":"US","widths":["B"]},{"id":"Red Wing|23","brand":"Red Wing","last":"23","offset":0.101,"n":11,"se":0.216,"system":"US","widths":["D"]},{"id":"Red Wing|326","brand":"Red Wing","last":"326","offset":0.686,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Red Wing|45","brand":"Red Wing","last":"45","offset":0.436,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Red Wing|50","brand":"Red Wing","last":"50","offset":0.186,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Red Wing|522","brand":"Red Wing","last":"522","offset":0.539,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Red Wing|60","brand":"Red Wing","last":"60","offset":0.341,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Red Wing|704","brand":"Red Wing","last":"704","offset":0.864,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Red Wing|8","brand":"Red Wing","last":"8","offset":-0.026,"n":53,"se":0.209,"system":"US","widths":["D","EE","B"]},{"id":"Red Wing|9268 Engineer Boots","brand":"Red Wing","last":"9268 Engineer Boots","offset":-0.425,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Red Wing|Beckman","brand":"Red Wing","last":"Beckman","offset":0.484,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Red Wing|Beckman Chukka","brand":"Red Wing","last":"Beckman Chukka","offset":-0.074,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Red Wing|Iron Ranger","brand":"Red Wing","last":"Iron Ranger","offset":-0.103,"n":9,"se":0.255,"system":"US","widths":["D","EE"]},{"id":"Red Wing|Mil-1","brand":"Red Wing","last":"Mil-1","offset":-0.425,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Red Wing|Moc Toe","brand":"Red Wing","last":"Moc Toe","offset":-0.016,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Red Wing|No","brand":"Red Wing","last":"No","offset":-0.36,"n":3,"se":0.29,"system":"US","widths":["D","EE","E"]},{"id":"Red Wing|No.8","brand":"Red Wing","last":"No.8","offset":-0.19,"n":3,"se":0.239,"system":"US","widths":["E","EE","D"]},{"id":"Red Wing|Tradesman","brand":"Red Wing","last":"Tradesman","offset":-0.064,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Regal|","brand":"Regal","last":"","offset":-0.42,"n":2,"se":0.558,"system":"JP","widths":[]},{"id":"Saint Crispin's|","brand":"Saint Crispin's","last":"","offset":-0.248,"n":7,"se":0.226,"system":"UK","widths":["G","F","E"]},{"id":"Saint Crispin's|Chisel","brand":"Saint Crispin's","last":"Chisel","offset":-0.546,"n":2,"se":0.253,"system":"UK","widths":["G"]},{"id":"Saint Crispin's|Classic","brand":"Saint Crispin's","last":"Classic","offset":-0.131,"n":7,"se":0.221,"system":"UK","widths":["F","E","G"]},{"id":"Saint Crispin's|Novello","brand":"Saint Crispin's","last":"Novello","offset":0.221,"n":1,"se":0.292,"system":"UK","widths":["F"]},{"id":"Sanders|–","brand":"Sanders","last":"–","offset":-0.692,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Scotch Grain|","brand":"Scotch Grain","last":"","offset":-0.67,"n":3,"se":0.294,"system":"JP","widths":[]},{"id":"Scotch Grain|Shine or Rain","brand":"Scotch Grain","last":"Shine or Rain","offset":-0.914,"n":1,"se":0.292,"system":"JP","widths":[]},{"id":"Septieme Largeur|7505","brand":"Septieme Largeur","last":"7505","offset":-0.148,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"TANINO CRISTI|?","brand":"TANINO CRISTI","last":"?","offset":-25.322,"n":1,"se":0.292,"system":"EU","widths":[]},{"id":"TLB|Alan 10f-Uk Double Monk Straps","brand":"TLB","last":"Alan 10f-Uk Double Monk Straps","offset":-0.564,"n":1,"se":0.292,"system":"US","widths":["E"]},{"id":"TLB|Cooper 10e Uk Plain Toe Derby","brand":"TLB","last":"Cooper 10e Uk Plain Toe Derby","offset":-0.564,"n":1,"se":0.292,"system":"US","widths":["F"]},{"id":"TLB|Jones","brand":"TLB","last":"Jones","offset":-0.529,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"TLB|Oliver","brand":"TLB","last":"Oliver","offset":-0.029,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Thursday|","brand":"Thursday","last":"","offset":0.882,"n":2,"se":0.253,"system":"US","widths":["EE","D"]},{"id":"Thursday|Boots","brand":"Thursday","last":"Boots","offset":-0.551,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Thursday|Captain Boot","brand":"Thursday","last":"Captain Boot","offset":0.075,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Thursday|Captains","brand":"Thursday","last":"Captains","offset":0.633,"n":2,"se":0.756,"system":"US","widths":[]},{"id":"Thursday|Chukkas","brand":"Thursday","last":"Chukkas","offset":-0.173,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Thursday|Scout","brand":"Thursday","last":"Scout","offset":0.397,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Tricker's|","brand":"Tricker's","last":"","offset":0.945,"n":4,"se":0.269,"system":"UK","widths":[]},{"id":"Tricker's|2298","brand":"Tricker's","last":"2298","offset":0.108,"n":8,"se":0.219,"system":"UK","widths":["F"]},{"id":"Tricker's|4444","brand":"Tricker's","last":"4444","offset":-0.431,"n":15,"se":0.243,"system":"UK","widths":["G"]},{"id":"Tricker's|4497S","brand":"Tricker's","last":"4497S","offset":0.041,"n":26,"se":0.211,"system":"UK","widths":["5"]},{"id":"Tricker's|4537","brand":"Tricker's","last":"4537","offset":0.495,"n":2,"se":0.519,"system":"UK","widths":[]},{"id":"Tricker's|5402R","brand":"Tricker's","last":"5402R","offset":-0.064,"n":1,"se":0.292,"system":"UK","widths":[]},{"id":"Tricker's|W2297","brand":"Tricker's","last":"W2297","offset":-0.424,"n":1,"se":0.292,"system":"US","widths":["F"]},{"id":"Tricker's|W2298","brand":"Tricker's","last":"W2298","offset":0.126,"n":6,"se":0.243,"system":"UK","widths":["F"]},{"id":"US Navy|–","brand":"US Navy","last":"–","offset":0.308,"n":1,"se":0.292,"system":"US","widths":["W","R"]},{"id":"VASS|3636","brand":"VASS","last":"3636","offset":0.369,"n":2,"se":0.253,"system":"EU","widths":["F"]},{"id":"VASS|Budapest","brand":"VASS","last":"Budapest","offset":0.217,"n":2,"se":0.296,"system":"EU","widths":[]},{"id":"VASS|F","brand":"VASS","last":"F","offset":-0.021,"n":5,"se":0.227,"system":"EU","widths":["F"]},{"id":"VASS|F/P2","brand":"VASS","last":"F/P2","offset":-0.766,"n":1,"se":0.292,"system":"EU","widths":[]},{"id":"VASS|K","brand":"VASS","last":"K","offset":-0.062,"n":1,"se":0.292,"system":"EU","widths":[]},{"id":"VASS|P","brand":"VASS","last":"P","offset":-0.442,"n":1,"se":0.292,"system":"EU","widths":[]},{"id":"VASS|P2","brand":"VASS","last":"P2","offset":-0.557,"n":8,"se":0.292,"system":"EU","widths":["F","G"]},{"id":"VASS|U","brand":"VASS","last":"U","offset":0.091,"n":1,"se":0.292,"system":"EU","widths":[]},{"id":"VASS|Wholecut","brand":"VASS","last":"Wholecut","offset":-0.562,"n":1,"se":0.292,"system":"EU","widths":[]},{"id":"Viberg|1004","brand":"Viberg","last":"1004","offset":0.091,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Viberg|1004 Cantilever","brand":"Viberg","last":"1004 Cantilever","offset":0.694,"n":2,"se":0.319,"system":"US","widths":["D"]},{"id":"Viberg|1035","brand":"Viberg","last":"1035","offset":-0.182,"n":23,"se":0.213,"system":"US","widths":["B","F"]},{"id":"Viberg|1035/2030","brand":"Viberg","last":"1035/2030","offset":-0.065,"n":2,"se":0.253,"system":"US","widths":[]},{"id":"Viberg|110","brand":"Viberg","last":"110","offset":-0.318,"n":10,"se":0.217,"system":"US","widths":["A","B"]},{"id":"Viberg|2005","brand":"Viberg","last":"2005","offset":-0.016,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Viberg|2020","brand":"Viberg","last":"2020","offset":0.356,"n":2,"se":0.28,"system":"US","widths":[]},{"id":"Viberg|2020D","brand":"Viberg","last":"2020D","offset":-0.674,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Viberg|2030","brand":"Viberg","last":"2030","offset":0.0,"n":63,"se":0.21,"system":"US","widths":["D","F","B"]},{"id":"Viberg|2030 Cxl","brand":"Viberg","last":"2030 Cxl","offset":-0.038,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Viberg|2030 Kangaroo","brand":"Viberg","last":"2030 Kangaroo","offset":0.212,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Viberg|2040","brand":"Viberg","last":"2040","offset":-0.307,"n":9,"se":0.218,"system":"US","widths":["D"]},{"id":"Viberg|2045","brand":"Viberg","last":"2045","offset":-0.184,"n":9,"se":0.255,"system":"US","widths":["D"]},{"id":"Viberg|2050","brand":"Viberg","last":"2050","offset":0.459,"n":2,"se":0.451,"system":"US","widths":[]},{"id":"Viberg|2055","brand":"Viberg","last":"2055","offset":-0.706,"n":2,"se":0.253,"system":"US","widths":[]},{"id":"Viberg|240","brand":"Viberg","last":"240","offset":-0.425,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Viberg|40218","brand":"Viberg","last":"40218","offset":-0.934,"n":5,"se":0.254,"system":"US","widths":["F"]},{"id":"Viberg|40218 Now 2010","brand":"Viberg","last":"40218 Now 2010","offset":-1.311,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Viberg|42977","brand":"Viberg","last":"42977","offset":0.325,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Viberg|42977 Now 2020","brand":"Viberg","last":"42977 Now 2020","offset":-0.061,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"Viberg|Cantilever","brand":"Viberg","last":"Cantilever","offset":-0.424,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Viberg|Slipper","brand":"Viberg","last":"Slipper","offset":-0.924,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"White's|","brand":"White's","last":"","offset":-0.696,"n":1,"se":0.292,"system":"US","widths":[]},{"id":"White's|1970","brand":"White's","last":"1970","offset":-0.029,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"White's|50/50","brand":"White's","last":"50/50","offset":-0.424,"n":1,"se":0.292,"system":"US","widths":["E"]},{"id":"White's|55","brand":"White's","last":"55","offset":0.4,"n":3,"se":0.239,"system":"US","widths":["C","E"]},{"id":"White's|Barrie","brand":"White's","last":"Barrie","offset":-0.157,"n":3,"se":0.239,"system":"US","widths":["E","EE","D"]},{"id":"White's|Mp","brand":"White's","last":"Mp","offset":0.143,"n":3,"se":0.239,"system":"US","widths":["E","EE","D"]},{"id":"White's|Mp Boot","brand":"White's","last":"Mp Boot","offset":-0.101,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"White's|Northwest","brand":"White's","last":"Northwest","offset":1.076,"n":1,"se":0.292,"system":"US","widths":["C"]},{"id":"White's|Semi Dress","brand":"White's","last":"Semi Dress","offset":0.193,"n":2,"se":0.339,"system":"US","widths":["B","D"]},{"id":"White's|Semi-Dress","brand":"White's","last":"Semi-Dress","offset":-0.072,"n":3,"se":0.239,"system":"US","widths":["D","EEE"]},{"id":"White's|Semi-Dress Standard","brand":"White's","last":"Semi-Dress Standard","offset":-0.196,"n":1,"se":0.292,"system":"US","widths":["E"]},{"id":"White's|Semidress","brand":"White's","last":"Semidress","offset":0.436,"n":2,"se":0.253,"system":"US","widths":["D"]},{"id":"White's|Swing","brand":"White's","last":"Swing","offset":-0.652,"n":1,"se":0.292,"system":"US","widths":["E"]},{"id":"Wolverine|","brand":"Wolverine","last":"","offset":0.079,"n":9,"se":0.219,"system":"US","widths":["D"]},{"id":"Wolverine|1000","brand":"Wolverine","last":"1000","offset":-0.016,"n":1,"se":0.292,"system":"US","widths":["D"]},{"id":"Wolverine|1000 Mile","brand":"Wolverine","last":"1000 Mile","offset":0.274,"n":8,"se":0.236,"system":"US","widths":["D"]},{"id":"Wolverine|1k","brand":"Wolverine","last":"1k","offset":0.131,"n":6,"se":0.278,"system":"US","widths":["D"]},{"id":"Wolverine|1k Centennial","brand":"Wolverine","last":"1k Centennial","offset":0.126,"n":2,"se":0.294,"system":"US","widths":["D"]},{"id":"YEOSSAL|DR70","brand":"YEOSSAL","last":"DR70","offset":-0.192,"n":1,"se":0.292,"system":"UK","widths":["E"]},{"id":"Yanko|915","brand":"Yanko","last":"915","offset":-0.311,"n":1,"se":0.292,"system":"UK","widths":["F"]},{"id":"三陽山長|R2013","brand":"三陽山長","last":"R2013","offset":-17.942,"n":1,"se":0.292,"system":"JP","widths":[]}],"width_scales":{"US":["A","B","C","D","E","EE","EEE"],"UK":["C","D","E","F","G"],"TRICKERS":["4","5","6"],"NAVY":["N","R","W"]},"brand_width":{"Alden":["US","D"],"Allen Edmonds":["US","D"],"Florsheim":["US","D"],"Hanover":["US","D"],"Nettleton":["US","D"],"Mason":["US","D"],"Johnston&Murphy":["US","D"],"Foot So Port":["US","D"],"G.H.BASS":["US","D"],"New Balance":["US","D"],"Church's":["UK","F"],"Cheaney":["UK","F"],"Paraboot":["UK","F"],"Alfred Sargent":["UK","F"],"GRENSON":["UK","F"],"Crockett&Jones":["UK","E"],"Edward Green":["UK","E"],"John Lobb":["UK","E"],"Gaziano&Girling":["UK","E"],"George Cleverley":["UK","E"],"YEOSSAL":["UK","E"],"IRONDRESS":["UK","E"],"Enzo Bonafe":["UK","E"],"J.M. Weston":["US","D"],"Tricker's":["TRICKERS","5"],"US Navy":["NAVY","R"],"Löf & Tung":["UK","E"],"Saint Crispin's":["UK","F"],"Foster & Son":["UK","E"],"Carlos Santos":["UK","F"],"Loake":["UK","F"],"Carmina":["UK","E"],"Herring":["UK","F"],"Meermin":["UK","E"],"Yanko":["UK","E"],"Barker":["UK","F"],"Red Wing":["US","D"],"White's":["US","D"],"Nicks":["US","D"],"Wolverine":["US","D"],"Thursday":["US","D"],"Viberg":["US","D"],"Grant Stone":["US","D"],"Oak Street":["US","D"],"Rancourt":["US","D"],"Quoddy":["US","D"]},"stats":{"records":1772,"owners":65,"brands":61,"models":388}}</script>
+<script>
+(function(){
+"use strict";
+const M = JSON.parse(document.getElementById("model-data").textContent);
+const K = M.k_width;
+const byId = new Map(M.models.map(m => [m.id, m]));
+
+// 補正値は全体を通した相対値なので、よく観測されている木型の中央値を0に置き直す
+const anchorPool = M.models.filter(m => m.n >= 5).map(m => m.offset).sort((a,b)=>a-b);
+const ANCHOR = anchorPool.length ? anchorPool[Math.floor(anchorPool.length/2)] : 0;
+const rel = m => m.offset - ANCHOR;
+
+const brands = [...new Set(M.models.map(m => m.brand))].sort((a,b)=>a.localeCompare(b,"ja"));
+const lastsOf = b => M.models.filter(m => m.brand === b).sort((x,y)=> y.n - x.n || x.last.localeCompare(y.last));
+
+function toCm(size, sys){
+  if(sys === "US") return size + 18.0;
+  if(sys === "EU") return 25.0 + (size - 40.0) * 0.75;
+  if(sys === "JP") return size;
+  return size + 18.5;                       // UK と FR(J.M.Weston)
+}
+function fromCm(cm, sys){
+  if(sys === "US") return cm - 18.0;
+  if(sys === "EU") return 40.0 + (cm - 25.0) / 0.75;
+  if(sys === "JP") return cm;
+  return cm - 18.5;
+}
+function widthDev(brand, width){
+  const bw = M.brand_width[brand];
+  if(!bw || !width) return 0;
+  const order = M.width_scales[bw[0]];
+  if(!order) return 0;
+  const i = order.indexOf(width), j = order.indexOf(bw[1]);
+  return (i < 0 || j < 0) ? 0 : i - j;
+}
+function widthChoices(m){
+  const bw = M.brand_width[m.brand];
+  const set = new Set(m.widths);
+  if(bw && M.width_scales[bw[0]]) M.width_scales[bw[0]].forEach(w => set.add(w));
+  const bwOrder = bw ? M.width_scales[bw[0]] : null;
+  return [...set].sort((a,b) => bwOrder ? bwOrder.indexOf(a) - bwOrder.indexOf(b) : a.localeCompare(b));
+}
+function sizeChoices(sys){
+  const out = [];
+  if(sys === "EU"){ for(let s=36; s<=48.5; s+=0.5) out.push(s); }
+  else if(sys === "JP"){ for(let s=22; s<=30.5; s+=0.5) out.push(s); }
+  else { for(let s=4; s<=15.5; s+=0.5) out.push(s); }
+  return out;
+}
+const fmtSize = (s, sys) => (sys === "JP" ? s.toFixed(1) + "cm" : s.toFixed(1));
+const round05 = x => Math.round(x * 2) / 2;
+
+// ---- 状態 ----
+let owned = [{brand:"Alden", id:"Alden|Barrie", model:"990", size:8, width:"D"}];
+let target = {brand:"Edward Green", id:"Edward Green|202", model:"", width:"E"};
+
+function el(tag, cls, text){
+  const n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(text != null) n.textContent = text;
+  return n;
+}
+function selectField(labelText, options, value, onChange){
+  const f = el("div", "field");
+  const id = "f" + Math.random().toString(36).slice(2,8);
+  const lab = el("label", null, labelText); lab.htmlFor = id;
+  const sel = el("select"); sel.id = id;
+  options.forEach(o => {
+    const opt = el("option", null, o.label);
+    opt.value = o.value;
+    if(String(o.value) === String(value)) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  sel.addEventListener("change", () => onChange(sel.value));
+  f.append(lab, sel);
+  return f;
+}
+
+function shoeControls(node, state, isTarget, index){
+  node.innerHTML = "";
+  const m = byId.get(state.id);
+  const box = el("div", "shoe" + (isTarget ? " target" : ""));
+
+  box.appendChild(selectField("ブランド",
+    brands.map(b => ({value:b, label:b})), state.brand, v => {
+      state.brand = v;
+      state.model = "";
+      state.id = lastsOf(v)[0].id;
+      const nm = byId.get(state.id);
+      state.width = nm.widths[0] || "";
+      if(!isTarget) state.size = round05(fromCm(26.0, nm.system));
+      render();
+    }));
+
+  const known = lookupByBrand.get(state.brand) || [];
+  const modelOpts = [{value:"", label: known.length ? "（型式から選ばない）" : "（このブランドは未登録）"}]
+    .concat(known.map(e => ({value:e.model, label:e.model + "  · " + e.last})));
+  const modelField = selectField("型式・品番", modelOpts, state.model || "", v => {
+    state.model = v;
+    const e = known.find(x => x.model === v);
+    if(e){
+      const nm = byId.get(e.brand + "|" + e.last);
+      if(nm){
+        state.id = nm.id;
+        if(!nm.widths.includes(state.width)) state.width = nm.widths[0] || "";
+      }
+    }
+    render();
+  });
+  if(!known.length) modelField.querySelector("select").disabled = true;
+  box.appendChild(modelField);
+
+  // 型式が決まっていれば、木型はその型式に紐づくものだけに絞る。
+  // 紐づけが無い型式（辞書に載っていない）のときは、そのブランドの全木型から選ぶ。
+  const linked = state.model
+    ? known.filter(e => e.model === state.model)
+           .map(e => byId.get(e.brand + "|" + e.last)).filter(Boolean)
+    : [];
+  const lastOpts = linked.length ? linked : lastsOf(state.brand);
+
+  const lastField = selectField("木型・ラスト",
+    lastOpts.map(x => ({value:x.id, label:(x.last || "（記載なし）") + "  · " + x.n + "件"})),
+    state.id, v => {
+      state.id = v;
+      state.model = "";          // 木型を直接選んだら型式の指定は外す
+      const nm = byId.get(v);
+      if(!nm.widths.includes(state.width)) state.width = nm.widths[0] || "";
+      render();
+    });
+  if(linked.length === 1){
+    lastField.querySelector("select").disabled = true;   // 型式で一意に決まっている
+    lastField.appendChild(el("span", "locked", "型式から決まりました"));
+  }
+  box.appendChild(lastField);
+
+  if(!isTarget){
+    box.appendChild(selectField("サイズ",
+      sizeChoices(m.system).map(s => ({value:s, label:fmtSize(s, m.system)})),
+      state.size, v => { state.size = parseFloat(v); render(); }));
+  }
+
+  const ws = widthChoices(m);
+  box.appendChild(selectField("ウィズ（幅）",
+    [{value:"", label:"わからない"}].concat(ws.map(w => ({value:w, label:w}))),
+    state.width, v => { state.width = v; render(); }));
+
+  const sysTag = el("div", "field");
+  sysTag.style.gridColumn = "1 / -1";
+  sysTag.innerHTML = '<span style="font-size:11.5px;color:var(--muted)">表記系：<span style="font-family:var(--mono)">'
+    + m.system + '</span>　記録 <span style="font-family:var(--mono)">' + m.n + '</span> 件</span>';
+  box.appendChild(sysTag);
+
+  if(!isTarget && owned.length > 1){
+    const rm = el("button", "remove", "この靴を外す");
+    rm.type = "button";
+    rm.addEventListener("click", () => { owned.splice(index,1); render(); });
+    const holder = el("div", "field full");
+    holder.appendChild(rm);
+    box.appendChild(holder);
+  }
+  node.appendChild(box);
+}
+
+function estimate(){
+  const feet = [], vars = [];
+  owned.forEach(o => {
+    const m = byId.get(o.id);
+    if(!m) return;
+    const cm = toCm(o.size, m.system) + K * widthDev(m.brand, o.width);
+    feet.push(cm - m.offset);
+    vars.push(m.se * m.se);
+  });
+  if(!feet.length) return null;
+  const foot = feet.reduce((a,b)=>a+b, 0) / feet.length;
+  const varFoot = vars.reduce((a,b)=>a+b, 0) / (vars.length * vars.length);
+  const t = byId.get(target.id);
+  const cm = foot + t.offset - K * widthDev(t.brand, target.width);
+  const se = Math.sqrt(varFoot + t.se * t.se);
+  return {t, foot, cm, se,
+          size: fromCm(cm, t.system),
+          lo: fromCm(cm - 1.64 * se, t.system),
+          hi: fromCm(cm + 1.64 * se, t.system)};
+}
+
+function renderResult(r){
+  const box = document.getElementById("result");
+  box.innerHTML = "";
+  if(!r){ box.appendChild(el("p", null, "靴を1足以上選んでください。")); return; }
+
+  const readout = el("div", "readout");
+  readout.appendChild(el("div", "for", r.t.brand + "　" + (r.t.last || "（記載なし）")));
+  const big = el("div", "bignum");
+  big.innerHTML = '<span class="sys">' + r.t.system + '</span>' + fmtSize(round05(r.size), r.t.system)
+                + (target.width ? ' <span class="w">' + target.width + '</span>' : "");
+  readout.appendChild(big);
+  readout.appendChild(el("div", "range",
+    "ありうる範囲 " + fmtSize(round05(r.lo), r.t.system) + " 〜 " + fmtSize(round05(r.hi), r.t.system)));
+
+  const verdict = el("div", "verdict");
+  let level = "mid", word = "ふつう";
+  if(r.t.n >= 8 && owned.length >= 2){ level = "high"; word = "高い"; }
+  else if(r.t.n < 3 || owned.length === 0){ level = "low"; word = "低い"; }
+  const chip = el("div", "chip " + level);
+  chip.appendChild(el("i"));
+  chip.appendChild(el("span", null, "信頼度 " + word + "　この木型の記録 " + r.t.n + " 件"));
+  verdict.appendChild(chip);
+
+  const diff = rel(r.t) - (owned.length ? rel(byId.get(owned[0].id)) : 0);
+  const dir = Math.abs(diff) < 0.12 ? "ほぼ同じサイズで履けます"
+            : diff > 0 ? "手持ちより大きめのサイズが必要な木型です"
+                       : "手持ちより小さめのサイズで足ります";
+  verdict.appendChild(el("p", null,
+    dir + "（" + (owned.length ? byId.get(owned[0].id).brand + " " + (byId.get(owned[0].id).last||"") : "")
+    + " と比べて " + (diff >= 0 ? "+" : "") + diff.toFixed(2) + "cm）。"));
+
+  if(r.t.n < 3){
+    verdict.appendChild(el("p", "warn",
+      "この木型の記録は " + r.t.n + " 件しかありません。参考程度に見てください。"));
+  }
+  box.append(readout, verdict);
+}
+
+function renderChart(){
+  const nodes = [];
+  const seen = new Set();
+  owned.forEach(o => { if(!seen.has(o.id)){ seen.add(o.id); nodes.push({m:byId.get(o.id), target:false}); }});
+  if(!seen.has(target.id)) nodes.push({m:byId.get(target.id), target:true});
+  else nodes.forEach(n => { if(n.m.id === target.id) n.target = true; });
+
+  const vals = nodes.map(n => rel(n.m));
+  const lo = Math.min(-0.6, Math.min(...vals) - 0.15);
+  const hi = Math.max(0.6, Math.max(...vals) + 0.15);
+  const pos = v => ((v - lo) / (hi - lo)) * 100;
+
+  const chart = document.getElementById("chart");
+  chart.innerHTML = "";
+
+  const axis = el("div", "axis");
+  axis.appendChild(el("div"));
+  const ends = el("div", "ends");
+  ends.appendChild(el("span", null, "← 小さいサイズで足りる"));
+  ends.appendChild(el("span", null, "大きいサイズが必要 →"));
+  axis.appendChild(ends);
+  chart.appendChild(axis);
+
+  nodes.forEach(n => {
+    const v = rel(n.m);
+    const row = el("div", "bar" + (n.target ? " is-target" : ""));
+    const name = el("div", "name");
+    name.innerHTML = "<b>" + n.m.brand + "</b> <span>" + (n.m.last || "—") + "</span>";
+    row.appendChild(name);
+
+    const track = el("div", "track");
+    const zero = el("div", "zero");
+    zero.style.left = pos(0) + "%";
+    track.appendChild(zero);
+
+    const fill = el("div", "fill");
+    const a = Math.min(pos(0), pos(v)), b = Math.max(pos(0), pos(v));
+    fill.style.left = a + "%";
+    fill.style.width = Math.max(b - a, 0.6) + "%";
+    track.appendChild(fill);
+
+    const val = el("div", "val", (v >= 0 ? "+" : "") + v.toFixed(2) + "cm");
+    if(pos(v) > 70){ val.style.right = (100 - a) + "%"; val.style.marginRight = "8px"; }
+    else { val.style.left = b + "%"; val.style.marginLeft = "8px"; }
+    track.appendChild(val);
+
+    row.appendChild(track);
+    chart.appendChild(row);
+  });
+}
+
+function renderEvidence(){
+  const tb = document.getElementById("evidence");
+  tb.innerHTML = "";
+  const rows = [];
+  owned.forEach((o,i) => rows.push({m:byId.get(o.id), role:"手持ち" + (owned.length>1 ? " " + (i+1) : "")}));
+  rows.push({m:byId.get(target.id), role:"知りたい靴"});
+  rows.forEach(r => {
+    const tr = el("tr");
+    const c1 = el("td");
+    c1.innerHTML = r.m.brand + " <span class=\"tag\">" + (r.m.last || "—") + "</span>";
+    const conf = r.m.n >= 8 ? "高い" : r.m.n >= 3 ? "ふつう" : "低い";
+    tr.append(c1, el("td", null, r.role),
+      el("td", "num", String(r.m.n)),
+      el("td", "num", (rel(r.m) >= 0 ? "+" : "") + rel(r.m).toFixed(2)),
+      el("td", null, conf));
+    tb.appendChild(tr);
+  });
+}
+
+function render(){
+  const ownedBox = document.getElementById("owned");
+  ownedBox.innerHTML = "";
+  owned.forEach((o, i) => {
+    const holder = el("div");
+    holder.style.marginBottom = "10px";
+    shoeControls(holder, o, false, i);
+    ownedBox.appendChild(holder);
+  });
+  shoeControls(document.getElementById("target"), target, true, -1);
+  const r = estimate();
+  renderResult(r);
+  renderChart();
+  renderEvidence();
+}
+
+// ---- 型式 → ラストの対応表 ----
+const LOOKUP = JSON.parse(document.getElementById("lookup-data").textContent);
+const lookupByBrand = new Map();
+LOOKUP.forEach(e => {
+  if(!lookupByBrand.has(e.brand)) lookupByBrand.set(e.brand, []);
+  lookupByBrand.get(e.brand).push(e);
+});
+lookupByBrand.forEach(list =>
+  list.sort((a,b) => a.model.localeCompare(b.model, "ja", {numeric:true})));
+
+document.getElementById("add").addEventListener("click", () => {
+  owned.push({brand:"Crockett&Jones", id:"Crockett&Jones|325", model:"", size:7.5, width:"E"});
+  render();
+});
+
+render();
+})();
+</script>
+
+</body>
+</html>
