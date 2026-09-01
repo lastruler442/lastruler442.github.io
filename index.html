@@ -72,6 +72,18 @@ body{
 }
 .wrap{max-width:1000px;margin:0 auto;padding:40px 22px 80px;display:flex;flex-direction:column;gap:34px}
 
+/* 景品表示法（ステマ規制）で表示が義務。本文と同じ大きさ・同じ濃さにする */
+.ad-disclosure{
+  margin:0;
+  font-size:15px;
+  line-height:1.6;
+  color:var(--ink);
+  background:var(--brass-soft);
+  border-left:3px solid var(--brass);
+  padding:11px 15px;
+  border-radius:2px;
+}
+
 /* ---------- header ---------- */
 .masthead{display:flex;flex-direction:column;gap:14px}
 .eyebrow{
@@ -201,6 +213,17 @@ button:hover{border-color:var(--ink)}
 .chip.low i{background:var(--accent)}
 .verdict p{margin:0;font-size:14px;max-width:46ch}
 .verdict p.warn{color:var(--accent)}
+.shop{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:2px}
+a.buy{
+  display:inline-block;text-decoration:none;
+  font-size:13.5px;font-weight:500;
+  padding:9px 18px;border-radius:2px;
+  background:var(--accent);color:#fff;
+  border:1px solid var(--accent);
+}
+a.buy:hover{filter:brightness(1.12)}
+a.buy:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.shop-note{font-size:11.5px;color:var(--muted)}
 
 /* ---------- chart ---------- */
 section h3{
@@ -290,6 +313,9 @@ footer a{color:var(--muted)}
 </style>
 
 <div class="wrap">
+
+  <p class="ad-disclosure">このページには広告（アフィリエイトリンク）が含まれます。
+  サイズの計算結果は広告と一切関係なく、記録データだけから求めています。</p>
 
   <header class="masthead">
     <div class="eyebrow">木型ごとのサイズ補正</div>
@@ -1134,6 +1160,23 @@ function renderResult(r){
     verdict.appendChild(el("p", "warn",
       "この木型の記録は " + r.t.n + " 件しかありません。参考程度に見てください。"));
   }
+  const shop = el("div", "shop");
+  // 出品者は「US 8.5D」ではなく「8.5D」と書くので、表記系の文字は入れない
+  const q = [
+    BRAND_JA[r.t.brand] || r.t.brand,
+    target.model || r.t.last || "",
+    fmtSize(round05(r.size), r.t.system) + (target.width || ""),
+  ].filter(Boolean).join(" ");
+  const a = el("a", "buy");
+  a.href = rakutenLink("https://search.rakuten.co.jp/search/mall/"
+                       + encodeURIComponent(q) + "/");
+  a.target = "_blank";
+  a.rel = "nofollow sponsored noopener";
+  a.textContent = "楽天市場でこのサイズを探す";
+  shop.appendChild(a);
+  shop.appendChild(el("span", "shop-note", "広告リンクです"));
+  verdict.appendChild(shop);
+
   box.append(readout, verdict);
 }
 
@@ -1222,6 +1265,32 @@ function render(){
   renderChart();
   renderEvidence();
 }
+
+// ---- アフィリエイト ----
+// IDを差し替えるときはここだけ直せばよい
+const AFFILIATE_ID = "570412b2.4aff08f8.570412b3.08fd8f97";
+
+function rakutenLink(url){
+  return "https://hb.afl.rakuten.co.jp/hgc/" + AFFILIATE_ID
+       + "/?pc=" + encodeURIComponent(url) + "&link_type=text";
+}
+
+// 検索に使うブランドの日本語名（日本語で探したほうが商品が見つかる）
+const BRAND_JA = {
+  "Alden": "オールデン", "Crockett&Jones": "クロケット&ジョーンズ",
+  "Church's": "チャーチ", "Edward Green": "エドワードグリーン",
+  "John Lobb": "ジョンロブ", "Tricker's": "トリッカーズ",
+  "Paraboot": "パラブーツ", "J.M. Weston": "ジェイエムウエストン",
+  "Cheaney": "チーニー", "Carmina": "カルミナ", "Loake": "ローク",
+  "Allen Edmonds": "アレンエドモンズ", "Red Wing": "レッドウィング",
+  "Alfred Sargent": "アルフレッドサージェント", "GRENSON": "グレンソン",
+  "Sanders": "サンダース", "Enzo Bonafe": "エンツォボナフェ",
+  "Jalan Sriwijaya": "ジャランスリウァヤ", "Scotch Grain": "スコッチグレイン",
+  "Regal": "リーガル", "Meermin": "メルミン", "VASS": "ヴァーシュ",
+  "Grant Stone": "グラントストーン", "Viberg": "バイバーグ",
+  "Wolverine": "ウルヴァリン", "Berwick": "バーウィック", "Yanko": "ヤンコ",
+  "Barker": "バーカー", "Gaziano&Girling": "ガジアーノ&ガーリング",
+};
 
 // ---- 型式 → ラストの対応表 ----
 const LOOKUP = JSON.parse(document.getElementById("lookup-data").textContent);

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lastruler442.github.io/sitemap.xml
