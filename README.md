@@ -27,7 +27,7 @@
 
 「足の大きさ」は所有者ごとの未知数、「補正値」は木型ごとの未知数です。
 同じ人が複数のブランドを持っていれば、そのたびに木型どうしの差が1本決まります。
-これを1,988件ぶん集めて、全体の誤差が最小になるように一斉に解いています。
+これを2,112件ぶん集めて、全体の誤差が最小になるように一斉に解いています。
 
 A と B を両方持っている人が一人もいなくても、それぞれが他の木型を通じてつながっていれば
 答えが出ます。実際、木型の組み合わせのうち直接の記録があるのは 15% だけで、
@@ -46,18 +46,18 @@ A と B を両方持っている人が一人もいなくても、それぞれが
 
 | | 検証件数 | 誤差の中央値 | ハーフサイズ以内 |
 |---|---|---|---|
-| 全体 | 1,634 | 0.17 cm | 88% |
-| 靴店の顧客サイズ表 由来 | 80 | 0.12 cm | 98% |
+| 全体 | 1,720 | 0.17 cm | 88% |
+| 靴店の顧客サイズ表 由来 | 196 | 0.15 cm | 95% |
 | Skoaktiebolaget 由来 | 270 | 0.16 cm | 93% |
-| 日本語ブログ由来 | 152 | 0.19 cm | 88% |
-| r/goodyearwelt 由来 | 1,132 | 0.18 cm | 86% |
+| 日本語ブログ由来 | 120 | 0.22 cm | 86% |
+| r/goodyearwelt 由来 | 1,134 | 0.18 cm | 86% |
 
 木型の記録数ごとに測ると、**分かれ目は6件**でした。
 
 | その木型の記録数 | ハーフサイズ以内 |
 |---|---|
 | 6件以上 | 約 90% |
-| 3〜5件 | 77% |
+| 3〜5件 | 79% |
 | 1〜2件 | 測定できない（隠すと予測材料がなくなるため） |
 
 ページ上の信頼度表示は、この実測値に合わせてあります。
@@ -75,12 +75,12 @@ A と B を両方持っている人が一人もいなくても、それぞれが
 | [r/goodyearwelt Manufacturer Last Sizing](https://dslaw.github.io/goodyearwelt-sizes/models.html) | 1,282 | 31 |
 | [Skoaktiebolaget Last Comparisons](https://www.skoaktiebolaget.com/pages/last-comparisons) | 305 | 15 |
 | 日本語の革靴ブログ | 215 | 19 |
-| [Antonio Meccariello Clients Feedback](https://www.meccarielloshoes.it/feedback-from-the-world-in-comparition-with-other-brands/)／[Norman Vilalta Size Comparison](https://shop.normanvilalta.com/en-us/pages/norman-vilalta-size-comparison) | 186 | 29 |
+| [Antonio Meccariello Clients Feedback](https://www.meccarielloshoes.it/feedback-from-the-world-in-comparition-with-other-brands/)／[Norman Vilalta Size Comparison](https://shop.normanvilalta.com/en-us/pages/norman-vilalta-size-comparison) | 310 | 36 |
 
 靴店が公開している「お客さんごとの他ブランドとのサイズ比較」が、最も精度の高いデータでした。
 店が実際にフィッティングを確認した記録だからだと思います。
 
-型式（品番・モデル名）から木型を引く辞書 265 件は、
+型式（品番・モデル名）から木型を引く辞書 815 件は、
 [Crockett & Jones 公式](https://www.crockettandjones.com/) と
 [Tricker's 公式](https://www.trickers.com/)、Alden 正規販売店、中古靴店の商品表記から作りました。
 まとめ記事は誤りが多いため使っていません
@@ -90,7 +90,7 @@ A と B を両方持っている人が一人もいなくても、それぞれが
 
 ## 限界
 
-- 木型 424 種のうち、記録が3件以上あるのは 155 種だけです。それ以外は1〜2人の値をなぞっているに過ぎません
+- 木型 467 種のうち、記録が3件以上あるのは 164 種だけです。それ以外は1〜2人の値をなぞっているに過ぎません
 - **データを増やしても全体の精度は頭打ちです。** 記録が6件を超えると、それ以上増やしても
   その木型の精度は上がりませんでした。残る誤差（中央値 0.17cm）は、同じ木型でも
   人によって好みの余裕が違うぶんだと考えています
